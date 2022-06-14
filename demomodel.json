@@ -1,0 +1,31 @@
+{
+    "appname": "test",
+    "defaultmodule": "SH",
+    "transactionkinds": [
+        {
+            "id": 1,
+            "name": "registration starting",
+            "type": "elementary"
+        },
+        {
+            "id": 2,
+            "name": "registration paying",
+            "type": "elementary"
+        }
+    ],
+    "actorroles": [
+        {
+            "id": 1,
+            "name": "(aspirant) member",
+            "type": "composite"
+        },
+        {
+            "id": 1,
+            "name": "registration starter",
+            "type": "elementary"
+        }
+    ],
+    "facttypes": [
+
+    ]
+}
