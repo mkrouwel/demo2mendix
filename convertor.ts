@@ -4,7 +4,10 @@ import { IModel, projects, security, domainmodels } from "mendixmodelsdk";
 
 const jsonString = require('./demomodel.json');
 
-const model = await loginAndCreateNewMendixApplication();
+const client = new MendixPlatformClient();
+const app = await client.createNewApp(jsonString.name + new Date());
+const workingCopy = await app.createTemporaryWorkingCopy("main");
+const model = await workingCopy.openModel();
 const modelProject : projects.IProject = model.allProjects()[0];
 const module = projects.Module.createIn(modelProject);
 const moduleSecurity = security.ModuleSecurity.createIn(jsonString.defaultmodule);
@@ -25,9 +28,5 @@ for(var i = 0; i < jsonString.transactionkinds.length; i++) {
 
 // action rules
 
-async function loginAndCreateNewMendixApplication() : Promise<IModel> {
-    const client = new MendixPlatformClient();
-    const app = await client.createNewApp(jsonString.name + new Date());
-    const workingCopy = await app.createTemporaryWorkingCopy("main");
-    return await workingCopy.openModel();
-}
+await model.flushChanges();
+await workingCopy.commitToRepository("main", { commitMessage: "Generated app v1" });
