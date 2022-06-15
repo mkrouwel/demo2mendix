@@ -1,0 +1,25 @@
+{
+  "name": "demo2mendix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "convertor.js",
+  "dependencies": {
+    "mendixmodelsdk": "^4.63.0",
+    "mendixplatformsdk": "^5.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkrouwel/demo2mendix.git"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkrouwel/demo2mendix/issues"
+  },
+  "homepage": "https://github.com/mkrouwel/demo2mendix#readme"
+}

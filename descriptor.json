@@ -1,0 +1,5 @@
+{
+    "appname": "SHtest",
+    "defaultmodule": "SH",
+    "demomodel" : "./mdemomodel.json"
+}
