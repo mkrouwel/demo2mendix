@@ -1,6 +1,6 @@
 import { json } from "stream/consumers";
 import { MendixPlatformClient,  } from "mendixplatformsdk";
-import { IModel, projects, security, domainmodels, microflows, pages } from "mendixmodelsdk";
+import { IModel, projects, security, domainmodels, microflows, pages, datatypes } from "mendixmodelsdk";
 
 import descriptor from "./descriptor.json";
 descriptor.demomodel;
@@ -21,7 +21,7 @@ for(var i = 0; i < demomodel.transactionkinds.length; i++) {
     var transactionkind = demomodel.transactionkinds[i];
     if(transactionkind.type === "elementary") {
         const entity = domainmodels.Entity.createIn(domainModel);
-        entity.name = transactionkind.name;
+        entity.name = replaceWhiteSpace(transactionkind.name);
     }
 }
 
@@ -33,7 +33,9 @@ for(var i = 0; i < demomodel.factkinds.length; i++) {
     // other types ...
     if(factkind.type === "derived") {
         const microflow = microflows.Microflow.createIn(module);
-        microflow.name = "Calculate_" + factkind.name;
+        microflow.name = "Calculate_" + replaceWhiteSpace(factkind.name);
+        microflows.StartEvent.createIn(microflow.objectCollection);
+        microflows.EndEvent.createIn(microflow.objectCollection);
         const parameter = microflows.MicroflowParameterObject.createIn(microflow.objectCollection);
         parameter.name = factkind.parameter;
     }
@@ -44,7 +46,9 @@ for(var i = 0; i < demomodel.actionrules.length; i++) {
     var actionrule = demomodel.actionrules[i];
     // process event part...
     const microflow = microflows.Microflow.createIn(module);
-    microflow.name = "AssessTruth_${actionrule.actorrole}_${actionrule.name}";
+    microflow.name = "AssessTruth_" + actionrule.actorrole + "_" + replaceWhiteSpace(actionrule.name);
+    microflows.StartEvent.createIn(microflow.objectCollection);
+    microflows.EndEvent.createIn(microflow.objectCollection);
     // process response part...
 }
 
@@ -52,8 +56,12 @@ for(var i = 0; i < demomodel.actionrules.length; i++) {
 for(var i = 0; i < demomodel.oivs.length; i++) {
     var oiv = demomodel.oivs[i];
     const entity = domainmodels.Entity.createIn(domainModel);
-    entity.name = oiv.name;
+    entity.name = replaceWhiteSpace(oiv.name);
 }
 
 await model.flushChanges();
 await workingCopy.commitToRepository("trunk", { commitMessage: "Generated app v1" });
+
+function replaceWhiteSpace(s : string) : string {
+    return s.replace(' ', '_');
+}
