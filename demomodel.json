@@ -25,6 +25,49 @@
     ],
     "factkinds": [
         {
+            "name": "Registration",
+            "type": "entitytype"
+        },
+        {
+            "name": "Person",
+            "type": "entitytype"
+        },
+        {
+            "name": "Nationality",
+            "type": "enum",
+            "values": "NL, EN"
+        },
+        {
+            "name": "member",
+            "type": "propertytype",
+            "domain": "Registration",
+            "range": "Person"
+        },
+        {
+            "name": "payer",
+            "type": "propertytype",
+            "domain": "Registration",
+            "range": "Person"
+        },
+        {
+            "name": "starting day",
+            "type": "valuetype",
+            "domain": "Registration",
+            "range": "datetime"
+        },
+        {
+            "name": "day of birth",
+            "type": "valuetype",
+            "domain": "Person",
+            "range": "datetime"
+        },
+        {
+            "name": "nationality",
+            "type": "valuetype",
+            "domain": "Person",
+            "range": "Nationality"
+        },
+        {
             "name": "PersonAge",
             "type": "derived",
             "parameter": "person"
