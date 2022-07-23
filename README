@@ -1,0 +1,11 @@
+This script can be used to convert DEMO models (expressed in JSON) to a working Mendix application.
+
+Steps:
+1. Set up your environment: https://docs.mendix.com/apidocs-mxsdk/mxsdk/setting-up-your-development-environment/
+2. Set up your personal access token: https://docs.mendix.com/apidocs-mxsdk/mxsdk/setup-your-pat/
+3. Optional: compile with 'tsc'
+4. Run with 'node --experimental-json-modules translator.js'
+
+Background:
+https://www.mendix.com/blog/presenting-the-mendix-platform-sdk/
+https://apidocs.rnd.mendix.com/platformsdk/latest/index.html
