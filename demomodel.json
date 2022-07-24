@@ -34,7 +34,7 @@
         },
         {
             "name": "Nationality",
-            "type": "enum",
+            "type": "valuetype",
             "values": "NL, EN"
         },
         {
@@ -51,19 +51,19 @@
         },
         {
             "name": "starting day",
-            "type": "valuetype",
+            "type": "attributetype",
             "domain": "Registration",
             "range": "datetime"
         },
         {
             "name": "day of birth",
-            "type": "valuetype",
+            "type": "attributetype",
             "domain": "Person",
             "range": "datetime"
         },
         {
             "name": "nationality",
-            "type": "valuetype",
+            "type": "attributetype",
             "domain": "Person",
             "range": "Nationality"
         },
