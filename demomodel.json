@@ -16,6 +16,8 @@
         {"name": "starting day", "type": "attributetype", "domain": "Registration", "range": "datetime"},
         {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "datetime"},
         {"name": "nationality", "type": "attributetype", "domain": "Person", "range": "Nationality"},
+        {"name": "StartedRegistration", "type": "eventtype", "parameter": "Registration", "product": "registration is started"},
+        {"name": "EndedRegistration", "type": "eventtype", "parameter": "Registration", "product": "registration is ended"},
         {"name": "PersonAge", "type": "derived", "parameter": "person"}
     ],
     "actionrules": 

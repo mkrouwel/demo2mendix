@@ -1,5 +1,5 @@
 import { MendixPlatformClient } from "mendixplatformsdk";
-import { projects, security, domainmodels, microflows, enumerations } from "mendixmodelsdk";
+import { projects, security, domainmodels, microflows, enumerations, texts } from "mendixmodelsdk";
 import descriptor from "./descriptor.json";
 descriptor.demomodel;
 const demomodel = (await import(descriptor.demomodel)).default;
@@ -8,13 +8,6 @@ const workingCopy = await loadWorkingCopy();
 const model = await workingCopy.openModel();
 const [module, domainModel] = createModule();
 // transaction kinds
-for (var i = 0; i < demomodel.transactionkinds.length; i++) {
-    var transactionkind = demomodel.transactionkinds[i];
-    if (transactionkind.type === "elementary") {
-        const entity = domainmodels.Entity.createIn(domainModel);
-        entity.name = replaceWhiteSpace(transactionkind.name);
-    }
-}
 // actor roles ...
 // fact kinds
 for (var i = 0; i < demomodel.factkinds.length; i++) {
@@ -28,7 +21,9 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
         enumE.name = replaceWhiteSpace(factkind.name);
         factkind.values.split(", ").forEach(v => {
             const enumV = enumerations.EnumerationValue.createIn(enumE);
-            enumV.name = v;
+            enumV.name = replaceWhiteSpace(v);
+            texts.Text.createInEnumerationValueUnderCaption(enumV);
+            //TODO: need to set caption text here...
         });
     }
     else if (factkind.type === "propertytype") {
@@ -49,10 +44,18 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
         if (factkind.range == "money")
             domainmodels.DecimalAttributeType.createInAttributeUnderType(attr);
         else { // suppose enum
-            const enumT = domainmodels.EnumerationAttributeType.createInAttributeUnderType(attr);
+            // const enumT = domainmodels.EnumerationAttributeType.createInAttributeUnderType(attr);
             // need to set the right enum but below doesnt work...
             // enumT.enumeration = model.findEnumerationByQualifiedName(descriptor.defaultmodule + "." + replaceWhiteSpace(factkind.range));
         }
+    }
+    else if (factkind.type === "eventtype") {
+        const entity = domainmodels.Entity.createIn(domainModel);
+        entity.name = replaceWhiteSpace(factkind.name);
+        const assoc = domainmodels.Association.createIn(domainModel);
+        assoc.name = replaceWhiteSpace(factkind.parameter);
+        assoc.parent = entity;
+        assoc.child = domainModel.entities.find(e => e.name == replaceWhiteSpace(factkind.parameter));
     }
     else if (factkind.type === "derived") {
         const microflow = microflows.Microflow.createIn(module);
@@ -60,7 +63,7 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
         microflows.StartEvent.createIn(microflow.objectCollection);
         microflows.EndEvent.createIn(microflow.objectCollection);
         const parameter = microflows.MicroflowParameterObject.createIn(microflow.objectCollection);
-        parameter.name = factkind.parameter;
+        parameter.name = replaceWhiteSpace(factkind.parameter);
     }
 }
 // action rules
@@ -105,5 +108,5 @@ function createModule() {
     return [module, domainModel];
 }
 function replaceWhiteSpace(s) {
-    return s.replace('/ /g', '_');
+    return s.replace('/\s/g', '_');
 }
