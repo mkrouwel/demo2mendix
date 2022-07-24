@@ -1,90 +1,29 @@
 {
     "transactionkinds": [
-        {
-            "id": "TK01",
-            "name": "registration starting",
-            "type": "elementary"
-        },
-        {
-            "id": "TK02",
-            "name": "registration paying",
-            "type": "elementary"
-        }
+        {"id": "TK01", "name": "registration starting", "type": "elementary"},
+        {"id": "TK02", "name": "registration paying", "type": "elementary"}
     ],
     "actorroles": [
-        {
-            "id": "CAR01",
-            "name": "(aspirant) member",
-            "type": "composite"
-        },
-        {
-            "id": "AR01",
-            "name": "registration starter",
-            "type": "elementary"
-        }
+        {"id": "CAR01", "name": "(aspirant) member", "type": "composite"},
+        {"id": "AR01", "name": "registration starter", "type": "elementary"}
     ],
     "factkinds": [
-        {
-            "name": "Registration",
-            "type": "entitytype"
-        },
-        {
-            "name": "Person",
-            "type": "entitytype"
-        },
-        {
-            "name": "Nationality",
-            "type": "valuetype",
-            "values": "NL, EN"
-        },
-        {
-            "name": "member",
-            "type": "propertytype",
-            "domain": "Registration",
-            "range": "Person"
-        },
-        {
-            "name": "payer",
-            "type": "propertytype",
-            "domain": "Registration",
-            "range": "Person"
-        },
-        {
-            "name": "starting day",
-            "type": "attributetype",
-            "domain": "Registration",
-            "range": "datetime"
-        },
-        {
-            "name": "day of birth",
-            "type": "attributetype",
-            "domain": "Person",
-            "range": "datetime"
-        },
-        {
-            "name": "nationality",
-            "type": "attributetype",
-            "domain": "Person",
-            "range": "Nationality"
-        },
-        {
-            "name": "PersonAge",
-            "type": "derived",
-            "parameter": "person"
-        }
+        {"name": "Registration", "type": "entitytype"},
+        {"name": "Person", "type": "entitytype"},
+        {"name": "Nationality", "type": "valuetype", "values": "NL, EN"},
+        {"name": "member", "type": "propertytype", "domain": "Registration", "range": "Person"},
+        {"name": "payer", "type": "propertytype", "domain": "Registration", "range": "Person"},
+        {"name": "starting day", "type": "attributetype", "domain": "Registration", "range": "datetime"},
+        {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "datetime"},
+        {"name": "nationality", "type": "attributetype", "domain": "Person", "range": "Nationality"},
+        {"name": "PersonAge", "type": "derived", "parameter": "person"}
     ],
-    "actionrules": [
-        {
-            "actorrole": "AR01",
-            "name": "T01rq"
-        }
+    "actionrules": 
+    [
+        {"actorrole": "AR01", "name": "T01rq"}
     ],
     "oivs": [
-        {
-            "name": "functionary type"
-        },
-        {
-            "name": "organizational unit"
-        }
+        {"name": "functionary type"},
+        {"name": "organizational unit"}
     ]
 }

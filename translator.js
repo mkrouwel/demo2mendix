@@ -23,9 +23,13 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
         const entity = domainmodels.Entity.createIn(domainModel);
         entity.name = replaceWhiteSpace(factkind.name);
     }
-    else if (factkind.type === "enum") {
-        const enumV = enumerations.Enumeration.createIn(module);
-        enumV.name = replaceWhiteSpace(factkind.name);
+    else if (factkind.type === "valuetype") {
+        const enumE = enumerations.Enumeration.createIn(module);
+        enumE.name = replaceWhiteSpace(factkind.name);
+        factkind.values.split(", ").forEach(v => {
+            const enumV = enumerations.EnumerationValue.createIn(enumE);
+            enumV.name = v;
+        });
     }
     else if (factkind.type === "propertytype") {
         const assoc = domainmodels.Association.createIn(domainModel);
@@ -33,7 +37,7 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
         assoc.parent = domainModel.entities.find(e => e.name == replaceWhiteSpace(factkind.domain));
         assoc.child = domainModel.entities.find(e => e.name == replaceWhiteSpace(factkind.range));
     }
-    else if (factkind.type === "valuetype") {
+    else if (factkind.type === "attributetype") {
         const attr = domainmodels.Attribute.createIn(domainModel.entities.find(e => e.name == replaceWhiteSpace(factkind.domain)));
         attr.name = replaceWhiteSpace(factkind.name);
         if (factkind.range == "datetime")

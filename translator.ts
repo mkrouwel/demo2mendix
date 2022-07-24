@@ -30,8 +30,12 @@ for(var i = 0; i < demomodel.factkinds.length; i++) {
         entity.name = replaceWhiteSpace(factkind.name);
     }
     else if(factkind.type === "valuetype") {
-        const enumV = enumerations.Enumeration.createIn(module)
-        enumV.name = replaceWhiteSpace(factkind.name)
+        const enumE = enumerations.Enumeration.createIn(module)
+        enumE.name = replaceWhiteSpace(factkind.name)
+        factkind.values.split(", ").forEach(v => {
+            const enumV = enumerations.EnumerationValue.createIn(enumE);
+            enumV.name = v;
+        })
     }
     else if(factkind.type === "propertytype") {
         const assoc = domainmodels.Association.createIn(domainModel);

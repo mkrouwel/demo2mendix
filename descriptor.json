@@ -1,5 +1,1 @@
-{
-    "appname": "SHtest",
-    "defaultmodule": "SH",
-    "demomodel" : "./demomodel.json"
-}
+{"appname": "SHtest", "defaultmodule": "SH", "demomodel" : "./demomodel.json"}
