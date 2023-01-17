@@ -79,7 +79,7 @@ var reports;
             /** @internal */
             this.__dataSet = new internal.ByNameReferenceProperty(ReportWidget, this, "dataSet", null, "DataSets$DataSet");
             /** @internal */
-            this.__generateOnLoad = new internal.PrimitiveProperty(ReportWidget, this, "generateOnLoad", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__generateOnLoad = new internal.PrimitiveProperty(ReportWidget, this, "generateOnLoad", true, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new ReportWidget() cannot be invoked directly, please use 'model.reports.createReportWidget()'");
             }
@@ -211,7 +211,7 @@ var reports;
             /** @internal */
             this.__isPagingEnabled = new internal.PrimitiveProperty(BasicReport, this, "isPagingEnabled", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__pageSize = new internal.PrimitiveProperty(BasicReport, this, "pageSize", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__pageSize = new internal.PrimitiveProperty(BasicReport, this, "pageSize", 20, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
                 throw new Error("new BasicReport() cannot be invoked directly, please use 'model.reports.createBasicReport()'");
             }
@@ -1080,7 +1080,7 @@ var reports;
             /** @internal */
             this.__dataSetColumnName = new internal.PrimitiveProperty(BasicReportColumn, this, "dataSetColumnName", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__width = new internal.PrimitiveProperty(BasicReportColumn, this, "width", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__width = new internal.PrimitiveProperty(BasicReportColumn, this, "width", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__alignment = new internal.EnumProperty(BasicReportColumn, this, "alignment", pages_1.pages.AlignmentEnum.Left, pages_1.pages.AlignmentEnum);
             /** @internal */
@@ -1924,7 +1924,7 @@ var reports;
             /** @internal */
             this.__xAxisFormat = new internal.EnumProperty(ReportChart, this, "xAxisFormat", ColumnFormat.Default, ColumnFormat);
             /** @internal */
-            this.__yAxisPrecision = new internal.PrimitiveProperty(ReportChart, this, "yAxisPrecision", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__yAxisPrecision = new internal.PrimitiveProperty(ReportChart, this, "yAxisPrecision", 2, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__yAxisUseMinMax = new internal.PrimitiveProperty(ReportChart, this, "yAxisUseMinMax", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
@@ -3023,9 +3023,9 @@ var reports;
             /** @internal */
             this.__maxYear = new internal.PrimitiveProperty(ReportDateRangeSelector, this, "maxYear", 0, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__fieldsPerRow = new internal.PrimitiveProperty(ReportDateRangeSelector, this, "fieldsPerRow", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__fieldsPerRow = new internal.PrimitiveProperty(ReportDateRangeSelector, this, "fieldsPerRow", 3, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__showFromToRange = new internal.PrimitiveProperty(ReportDateRangeSelector, this, "showFromToRange", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__showFromToRange = new internal.PrimitiveProperty(ReportDateRangeSelector, this, "showFromToRange", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__fromCaption = new internal.PartProperty(ReportDateRangeSelector, this, "fromCaption", null, true);
             /** @internal */

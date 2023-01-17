@@ -159,7 +159,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__multiplier = new internal.PrimitiveProperty(HourSchedule, this, "multiplier", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__multiplier = new internal.PrimitiveProperty(HourSchedule, this, "multiplier", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__minuteOffset = new internal.PrimitiveProperty(HourSchedule, this, "minuteOffset", 0, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
@@ -220,7 +220,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__multiplier = new internal.PrimitiveProperty(MinuteSchedule, this, "multiplier", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__multiplier = new internal.PrimitiveProperty(MinuteSchedule, this, "multiplier", 1, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
                 throw new Error("new MinuteSchedule() cannot be invoked directly, please use 'model.scheduledevents.createMinuteSchedule()'");
             }
@@ -272,7 +272,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__multiplier = new internal.PrimitiveProperty(MonthSchedule, this, "multiplier", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__multiplier = new internal.PrimitiveProperty(MonthSchedule, this, "multiplier", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__monthOffset = new internal.PrimitiveProperty(MonthSchedule, this, "monthOffset", 0, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
@@ -331,7 +331,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__dayOfMonth = new internal.PrimitiveProperty(MonthDateSchedule, this, "dayOfMonth", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__dayOfMonth = new internal.PrimitiveProperty(MonthDateSchedule, this, "dayOfMonth", 1, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
                 throw new Error("new MonthDateSchedule() cannot be invoked directly, please use 'model.scheduledevents.createMonthDateSchedule()'");
             }
@@ -673,7 +673,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__month = new internal.PrimitiveProperty(YearSchedule, this, "month", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__month = new internal.PrimitiveProperty(YearSchedule, this, "month", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__hourOfDay = new internal.PrimitiveProperty(YearSchedule, this, "hourOfDay", 0, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
@@ -723,7 +723,7 @@ var scheduledevents;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__dayOfMonth = new internal.PrimitiveProperty(YearDateSchedule, this, "dayOfMonth", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__dayOfMonth = new internal.PrimitiveProperty(YearDateSchedule, this, "dayOfMonth", 1, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
                 throw new Error("new YearDateSchedule() cannot be invoked directly, please use 'model.scheduledevents.createYearDateSchedule()'");
             }

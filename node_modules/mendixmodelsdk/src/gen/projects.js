@@ -404,7 +404,7 @@ var projects;
             /** @internal */
             this.__protectedModuleType = new internal.EnumProperty(ModuleSettings, this, "protectedModuleType", ProtectedModuleType.AddOn, ProtectedModuleType);
             /** @internal */
-            this.__version = new internal.PrimitiveProperty(ModuleSettings, this, "version", "", internal.PrimitiveTypeEnum.String);
+            this.__version = new internal.PrimitiveProperty(ModuleSettings, this, "version", "1.0.0", internal.PrimitiveTypeEnum.String);
             this._containmentName = "moduleSettings";
         }
         get containerAsModule() {

@@ -2,6 +2,15 @@ import * as internal from "../sdk/internal";
 export import StructureVersionInfo = internal.StructureVersionInfo;
 import { projects } from "./projects";
 export declare namespace images {
+    class MxImageFormat extends internal.AbstractEnum {
+        static Unknown: MxImageFormat;
+        static Png: MxImageFormat;
+        static Jpg: MxImageFormat;
+        static Bmp: MxImageFormat;
+        static Gif: MxImageFormat;
+        static Svg: MxImageFormat;
+        protected qualifiedTsTypeName: string;
+    }
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Images`.
      */
@@ -21,6 +30,11 @@ export declare namespace images {
         set name(newValue: string);
         get imageData(): string | null;
         set imageData(newValue: string | null);
+        /**
+         * In version 9.17.0: introduced
+         */
+        get imageFormat(): MxImageFormat;
+        set imageFormat(newValue: MxImageFormat);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new Image instance in the SDK and on the server.

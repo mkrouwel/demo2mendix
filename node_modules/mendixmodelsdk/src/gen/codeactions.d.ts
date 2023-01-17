@@ -213,6 +213,10 @@ export declare namespace codeactions {
          * In version 6.10.0: introduced
          */
         readonly description: string;
+        /**
+         * In version 9.17.0: introduced
+         */
+        readonly isRequired: boolean;
         asLoaded(): CodeActionParameter;
         load(callback: (element: CodeActionParameter) => void, forceRefresh?: boolean): void;
         load(forceRefresh?: boolean): Promise<CodeActionParameter>;
@@ -239,6 +243,11 @@ export declare namespace codeactions {
          */
         get category(): string;
         set category(newValue: string);
+        /**
+         * In version 9.17.0: introduced
+         */
+        get isRequired(): boolean;
+        set isRequired(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         get qualifiedName(): string | null;
     }

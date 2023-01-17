@@ -38,7 +38,7 @@ class PrimitiveProperty extends AbstractProperty_1.AbstractProperty {
             if (this.primitiveType === PrimitiveTypeEnum_1.PrimitiveTypeEnum.String && (change.newValue === null || change.newValue === undefined)) {
                 change.newValue = "";
             }
-            else {
+            else if (this.primitiveType !== PrimitiveTypeEnum_1.PrimitiveTypeEnum.Blob) {
                 utils_1.utils.assertNotNull(change.newValue, this.name);
             }
         }

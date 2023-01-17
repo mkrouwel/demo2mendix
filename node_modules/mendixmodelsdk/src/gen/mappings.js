@@ -73,9 +73,9 @@ var mappings;
             /** @internal */
             this.__isDefaultType = new internal.PrimitiveProperty(Element, this, "isDefaultType", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__minOccurs = new internal.PrimitiveProperty(Element, this, "minOccurs", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__minOccurs = new internal.PrimitiveProperty(Element, this, "minOccurs", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__maxOccurs = new internal.PrimitiveProperty(Element, this, "maxOccurs", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__maxOccurs = new internal.PrimitiveProperty(Element, this, "maxOccurs", 1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__nillable = new internal.PrimitiveProperty(Element, this, "nillable", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
@@ -83,11 +83,11 @@ var mappings;
             /** @internal */
             this.__exposedItemName = new internal.PrimitiveProperty(Element, this, "exposedItemName", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__maxLength = new internal.PrimitiveProperty(Element, this, "maxLength", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__maxLength = new internal.PrimitiveProperty(Element, this, "maxLength", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__fractionDigits = new internal.PrimitiveProperty(Element, this, "fractionDigits", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__fractionDigits = new internal.PrimitiveProperty(Element, this, "fractionDigits", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__totalDigits = new internal.PrimitiveProperty(Element, this, "totalDigits", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__totalDigits = new internal.PrimitiveProperty(Element, this, "totalDigits", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__errorMessage = new internal.PrimitiveProperty(Element, this, "errorMessage", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
@@ -527,7 +527,7 @@ var mappings;
             /** @internal */
             this.__parameter = new internal.ByNameReferenceProperty(MappingMicroflowParameter, this, "parameter", null, "Microflows$MicroflowParameter");
             /** @internal */
-            this.__levelOfParent = new internal.PrimitiveProperty(MappingMicroflowParameter, this, "levelOfParent", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__levelOfParent = new internal.PrimitiveProperty(MappingMicroflowParameter, this, "levelOfParent", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__valueElementPath = new internal.PrimitiveProperty(MappingMicroflowParameter, this, "valueElementPath", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
@@ -739,7 +739,7 @@ var mappings;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__xmlDataType = new internal.PrimitiveProperty(ValueMappingElement, this, "xmlDataType", "", internal.PrimitiveTypeEnum.String);
+            this.__xmlDataType = new internal.PrimitiveProperty(ValueMappingElement, this, "xmlDataType", "Unknown", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__type = new internal.PartProperty(ValueMappingElement, this, "type", null, true);
             /** @internal */
@@ -757,11 +757,11 @@ var mappings;
             /** @internal */
             this.__expectedContentTypes = new internal.PrimitiveProperty(ValueMappingElement, this, "expectedContentTypes", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__maxLength = new internal.PrimitiveProperty(ValueMappingElement, this, "maxLength", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__maxLength = new internal.PrimitiveProperty(ValueMappingElement, this, "maxLength", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__fractionDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "fractionDigits", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__fractionDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "fractionDigits", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__totalDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "totalDigits", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__totalDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "totalDigits", -1, internal.PrimitiveTypeEnum.Integer);
             if (arguments.length < 4) {
                 throw new Error("new ValueMappingElement() cannot be invoked directly, please use 'model.mappings.createValueMappingElement()'");
             }

@@ -161,7 +161,7 @@ class JavaScriptSerializer {
             settings: [],
             unit: false
         };
-        if (structure.name) {
+        if (structure.__name?.isAvailable) {
             creation.name = structure.name;
         }
         if (structure instanceof units.ModelUnit || structure instanceof units.StructuralUnit) {

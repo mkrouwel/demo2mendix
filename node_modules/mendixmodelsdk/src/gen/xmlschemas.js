@@ -135,7 +135,7 @@ var xmlschemas;
         }
         /** @internal */
         _isByNameReferrable() {
-            return true;
+            return this.__name.isAvailable;
         }
         /** @internal */
         _initializeDefaultProperties() {

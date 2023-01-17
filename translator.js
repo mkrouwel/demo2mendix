@@ -1,11 +1,13 @@
+//import { json } from "stream/consumers";
 import { MendixPlatformClient } from "mendixplatformsdk";
 import { projects, security, domainmodels, microflows, enumerations, texts } from "mendixmodelsdk";
-import descriptor from "./descriptor.json";
+import descriptor from "./descriptor.json" assert { type: "json" };
 descriptor.demomodel;
-const demomodel = (await import(descriptor.demomodel)).default;
+const demomodel = (await import(descriptor.demomodel, { assert: { type: 'json' } })).default;
 console.log(demomodel);
 const workingCopy = await loadWorkingCopy();
 const model = await workingCopy.openModel();
+//model.importModuleMpk() TODO
 const [module, domainModel] = createModule();
 // transaction kinds
 // actor roles ...
@@ -52,6 +54,7 @@ for (var i = 0; i < demomodel.factkinds.length; i++) {
     else if (factkind.type === "eventtype") {
         const entity = domainmodels.Entity.createIn(domainModel);
         entity.name = replaceWhiteSpace(factkind.name);
+        //domainmodels.Generalization.createIn(entity).generalization = model.findEntityByQualifiedName("Transaction.Proposition"); TODO
         const assoc = domainmodels.Association.createIn(domainModel);
         assoc.name = replaceWhiteSpace(factkind.parameter);
         assoc.parent = entity;
@@ -81,6 +84,8 @@ for (var i = 0; i < demomodel.oivs.length; i++) {
     var oiv = demomodel.oivs[i];
     const entity = domainmodels.Entity.createIn(domainModel);
     entity.name = replaceWhiteSpace(oiv.name);
+    const attr = domainmodels.Attribute.createIn(entity);
+    attr.name = "Name";
 }
 await model.flushChanges();
 await workingCopy.commitToRepository("trunk", { commitMessage: "Generated app v1" });
@@ -108,5 +113,5 @@ function createModule() {
     return [module, domainModel];
 }
 function replaceWhiteSpace(s) {
-    return s.replace('/\s/g', '_');
+    return s.replace(/\s/g, '_');
 }

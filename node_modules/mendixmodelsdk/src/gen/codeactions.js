@@ -320,6 +320,8 @@ var codeactions;
             this.__description = new internal.PrimitiveProperty(CodeActionParameter, this, "description", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__category = new internal.PrimitiveProperty(CodeActionParameter, this, "category", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__isRequired = new internal.PrimitiveProperty(CodeActionParameter, this, "isRequired", true, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new CodeActionParameter() cannot be invoked directly, please use 'model.codeactions.createCodeActionParameter()'");
             }
@@ -363,6 +365,15 @@ var codeactions;
         set category(newValue) {
             this.__category.set(newValue);
         }
+        /**
+         * In version 9.17.0: introduced
+         */
+        get isRequired() {
+            return this.__isRequired.get();
+        }
+        set isRequired(newValue) {
+            this.__isRequired.set(newValue);
+        }
         get qualifiedName() {
             return this._getQualifiedName();
         }
@@ -371,6 +382,9 @@ var codeactions;
             super._initializeDefaultProperties();
             if (this.__actionParameterType.isAvailable) {
                 this.actionParameterType = BasicParameterType.create(this.model);
+            }
+            if (this.__isRequired.isAvailable) {
+                this.isRequired = true;
             }
         }
     }
@@ -399,6 +413,12 @@ var codeactions;
             },
             category: {
                 introduced: "7.18.0"
+            },
+            isRequired: {
+                introduced: "9.17.0",
+                public: {
+                    currentValue: true
+                }
             }
         },
         public: {

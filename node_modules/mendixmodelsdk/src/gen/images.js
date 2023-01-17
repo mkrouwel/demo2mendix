@@ -7,9 +7,19 @@ exports.StructureVersionInfo = internal.StructureVersionInfo;
 const projects_1 = require("./projects");
 var images;
 (function (images) {
-    /**
-     * Interfaces and instance classes for types from the Mendix sub meta model `Images`.
-     */
+    class MxImageFormat extends internal.AbstractEnum {
+        constructor() {
+            super(...arguments);
+            this.qualifiedTsTypeName = "images.MxImageFormat";
+        }
+    }
+    MxImageFormat.Unknown = new MxImageFormat("Unknown", {});
+    MxImageFormat.Png = new MxImageFormat("Png", {});
+    MxImageFormat.Jpg = new MxImageFormat("Jpg", {});
+    MxImageFormat.Bmp = new MxImageFormat("Bmp", {});
+    MxImageFormat.Gif = new MxImageFormat("Gif", {});
+    MxImageFormat.Svg = new MxImageFormat("Svg", {});
+    images.MxImageFormat = MxImageFormat;
     class Image extends internal.Element {
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
@@ -17,6 +27,8 @@ var images;
             this.__name = new internal.PrimitiveProperty(Image, this, "name", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__imageData = new internal.PrimitiveProperty(Image, this, "imageData", null, internal.PrimitiveTypeEnum.Blob);
+            /** @internal */
+            this.__imageFormat = new internal.EnumProperty(Image, this, "imageFormat", MxImageFormat.Unknown, MxImageFormat);
             if (arguments.length < 4) {
                 throw new Error("new Image() cannot be invoked directly, please use 'model.images.createImage()'");
             }
@@ -37,6 +49,15 @@ var images;
             this.__imageData.set(newValue);
         }
         /**
+         * In version 9.17.0: introduced
+         */
+        get imageFormat() {
+            return this.__imageFormat.get();
+        }
+        set imageFormat(newValue) {
+            this.__imageFormat.set(newValue);
+        }
+        /**
          * Creates and returns a new Image instance in the SDK and on the server.
          * The new Image will be automatically stored in the 'images' property
          * of the parent ImageCollection element passed as argument.
@@ -54,7 +75,7 @@ var images;
         }
         /** @internal */
         _isByNameReferrable() {
-            return true;
+            return this.__name.isAvailable;
         }
         get qualifiedName() {
             return this._getQualifiedName();
@@ -62,6 +83,9 @@ var images;
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
+            if (this.__imageFormat.isAvailable) {
+                this.imageFormat = MxImageFormat.Unknown;
+            }
         }
     }
     Image.structureTypeName = "Images$Image";
@@ -71,6 +95,9 @@ var images;
                 public: {
                     currentValue: true
                 }
+            },
+            imageFormat: {
+                introduced: "9.17.0"
             }
         },
         public: {

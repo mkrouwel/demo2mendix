@@ -268,19 +268,19 @@ var settings;
             /** @internal */
             this.__name = new internal.PrimitiveProperty(Configuration, this, "name", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__applicationRootUrl = new internal.PrimitiveProperty(Configuration, this, "applicationRootUrl", "", internal.PrimitiveTypeEnum.String);
+            this.__applicationRootUrl = new internal.PrimitiveProperty(Configuration, this, "applicationRootUrl", "http://localhost:8080/", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__runtimePortNumber = new internal.PrimitiveProperty(Configuration, this, "runtimePortNumber", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__runtimePortNumber = new internal.PrimitiveProperty(Configuration, this, "runtimePortNumber", 8080, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__adminPortNumber = new internal.PrimitiveProperty(Configuration, this, "adminPortNumber", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__adminPortNumber = new internal.PrimitiveProperty(Configuration, this, "adminPortNumber", 8090, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__runtimePortOnlyLocal = new internal.PrimitiveProperty(Configuration, this, "runtimePortOnlyLocal", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__adminPortOnlyLocal = new internal.PrimitiveProperty(Configuration, this, "adminPortOnlyLocal", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__adminPortOnlyLocal = new internal.PrimitiveProperty(Configuration, this, "adminPortOnlyLocal", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__maxJavaHeapSize = new internal.PrimitiveProperty(Configuration, this, "maxJavaHeapSize", 0, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__emulateCloudSecurity = new internal.PrimitiveProperty(Configuration, this, "emulateCloudSecurity", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__emulateCloudSecurity = new internal.PrimitiveProperty(Configuration, this, "emulateCloudSecurity", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__extraJvmParameters = new internal.PrimitiveProperty(Configuration, this, "extraJvmParameters", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
@@ -288,7 +288,7 @@ var settings;
             /** @internal */
             this.__databaseUrl = new internal.PrimitiveProperty(Configuration, this, "databaseUrl", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__databaseName = new internal.PrimitiveProperty(Configuration, this, "databaseName", "", internal.PrimitiveTypeEnum.String);
+            this.__databaseName = new internal.PrimitiveProperty(Configuration, this, "databaseName", "default", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__databaseUseIntegratedSecurity = new internal.PrimitiveProperty(Configuration, this, "databaseUseIntegratedSecurity", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
@@ -854,7 +854,7 @@ var settings;
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);
             /** @internal */
-            this.__defaultLanguageCode = new internal.PrimitiveProperty(LanguageSettings, this, "defaultLanguageCode", "", internal.PrimitiveTypeEnum.String);
+            this.__defaultLanguageCode = new internal.PrimitiveProperty(LanguageSettings, this, "defaultLanguageCode", "en_US", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__languages = new internal.PartListProperty(LanguageSettings, this, "languages", []);
             if (arguments.length < 4) {
@@ -1056,21 +1056,21 @@ var settings;
             /** @internal */
             this.__defaultTimeZoneCode = new internal.PrimitiveProperty(RuntimeSettings, this, "defaultTimeZoneCode", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
-            this.__scheduledEventTimeZoneCode = new internal.PrimitiveProperty(RuntimeSettings, this, "scheduledEventTimeZoneCode", "", internal.PrimitiveTypeEnum.String);
+            this.__scheduledEventTimeZoneCode = new internal.PrimitiveProperty(RuntimeSettings, this, "scheduledEventTimeZoneCode", "Etc/UTC", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__hashAlgorithm = new internal.EnumProperty(RuntimeSettings, this, "hashAlgorithm", HashAlgorithmType.BCrypt, HashAlgorithmType);
             /** @internal */
-            this.__bcryptCost = new internal.PrimitiveProperty(RuntimeSettings, this, "bcryptCost", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__bcryptCost = new internal.PrimitiveProperty(RuntimeSettings, this, "bcryptCost", 10, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__roundingMode = new internal.EnumProperty(RuntimeSettings, this, "roundingMode", RoundingMode.HalfUp, RoundingMode);
             /** @internal */
             this.__allowUserMultipleSessions = new internal.PrimitiveProperty(RuntimeSettings, this, "allowUserMultipleSessions", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__enforceDataStorageUniqueness = new internal.PrimitiveProperty(RuntimeSettings, this, "enforceDataStorageUniqueness", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__enforceDataStorageUniqueness = new internal.PrimitiveProperty(RuntimeSettings, this, "enforceDataStorageUniqueness", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__enableDataStorageOptimisticLocking = new internal.PrimitiveProperty(RuntimeSettings, this, "enableDataStorageOptimisticLocking", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__enableDataStorageOptimisticLocking = new internal.PrimitiveProperty(RuntimeSettings, this, "enableDataStorageOptimisticLocking", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__enableDataStorageNewQueryHandling = new internal.PrimitiveProperty(RuntimeSettings, this, "enableDataStorageNewQueryHandling", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__enableDataStorageNewQueryHandling = new internal.PrimitiveProperty(RuntimeSettings, this, "enableDataStorageNewQueryHandling", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__useDeprecatedClientForWebServiceCalls = new internal.PrimitiveProperty(RuntimeSettings, this, "useDeprecatedClientForWebServiceCalls", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
@@ -1363,7 +1363,7 @@ var settings;
             /** @internal */
             this.__useOptimizedClient = new internal.EnumProperty(WebUIProjectSettingsPart, this, "useOptimizedClient", UseOptimizedClient.No, UseOptimizedClient);
             /** @internal */
-            this.__theme = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "theme", "", internal.PrimitiveTypeEnum.String);
+            this.__theme = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "theme", "(Default)", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__themeModuleName = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "themeModuleName", "", internal.PrimitiveTypeEnum.String);
             /** @internal */
@@ -1373,7 +1373,7 @@ var settings;
             /** @internal */
             this.__enableDownloadResources = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "enableDownloadResources", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
-            this.__enableMicroflowReachabilityAnalysis = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "enableMicroflowReachabilityAnalysis", false, internal.PrimitiveTypeEnum.Boolean);
+            this.__enableMicroflowReachabilityAnalysis = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "enableMicroflowReachabilityAnalysis", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__themeConversionStatus = new internal.EnumProperty(WebUIProjectSettingsPart, this, "themeConversionStatus", ThemeConversionStatusEnum.Done, ThemeConversionStatusEnum);
             /** @internal */
@@ -1543,9 +1543,9 @@ var settings;
             /** @internal */
             this.__userEntity = new internal.ByNameReferenceProperty(WorkflowsProjectSettingsPart, this, "userEntity", null, "DomainModels$Entity");
             /** @internal */
-            this.__workflowEngineParallelism = new internal.PrimitiveProperty(WorkflowsProjectSettingsPart, this, "workflowEngineParallelism", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__workflowEngineParallelism = new internal.PrimitiveProperty(WorkflowsProjectSettingsPart, this, "workflowEngineParallelism", 5, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
-            this.__defaultTaskParallelism = new internal.PrimitiveProperty(WorkflowsProjectSettingsPart, this, "defaultTaskParallelism", 0, internal.PrimitiveTypeEnum.Integer);
+            this.__defaultTaskParallelism = new internal.PrimitiveProperty(WorkflowsProjectSettingsPart, this, "defaultTaskParallelism", 3, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__workflowOnStateChangeEvent = new internal.PartProperty(WorkflowsProjectSettingsPart, this, "workflowOnStateChangeEvent", null, false);
             /** @internal */
