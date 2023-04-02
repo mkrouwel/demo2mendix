@@ -1,28 +1,52 @@
 {
     "transactionkinds": [
-        {"id": "TK01", "name": "registration starting", "type": "elementary"},
-        {"id": "TK02", "name": "registration paying", "type": "elementary"}
+        {"id": "TK01", "name": "registration starting", "type": "elementary", "casekinds": ["Registration"], "product": "registration is started", "productname": "StartedRegistration"},
+        {"id": "TK02", "name": "registration paying", "type": "elementary", "casekinds": ["Registration", "YearE"], "product": "the fee for registration in year is paid", "productname": "AnnualRegistrationPayment"},
+        {"id": "TK03", "name": "registration ending", "type": "elementary", "casekinds": ["Registration"], "product": "registration is ended", "productname": "EndedRegistration"},
+        {"id": "TK04", "name": "registration management", "type": "elementary", "casekinds": ["YearE"], "product": "registration management for year is done", "productname": "TK04product"}
     ],
     "actorroles": [
-        {"id": "CAR01", "name": "(aspirant) member", "type": "composite"},
-        {"id": "AR01", "name": "registration starter", "type": "elementary"}
+        {"id": "CTAR01", "name": "(aspirant) member", "type": "composite"},
+        {"id": "AR01", "name": "registration starter", "type": "elementary", "focus": "in"},
+        {"id": "AR02", "name": "registration payer", "type": "elementary", "focus": "out"},
+        {"id": "AR03", "name": "registration ender", "type": "elementary", "focus": "in"},
+        {"id": "AR04", "name": "registration manager", "type": "elementary", "focus": "in"}
+
     ],
     "factkinds": [
-        {"name": "Registration", "type": "entitytype"},
-        {"name": "Person", "type": "entitytype"},
-        {"name": "Nationality", "type": "valuetype", "values": "NL, EN"},
+        {"name": "Registration", "type": "entitytype", "focus": "in"},
+        {"name": "Person", "type": "entitytype", "focus": "out"},
+        {"name": "YearV", "type": "valuetype", "primitive": "integer"},
+        {"name": "YearE", "type": "entitytype", "focus": "out"},
+        {"name": "Nationality", "type": "valuetype", "values": "NL, EN", "primitive": "string"},
+        {"name": "Day", "type": "valuetype", "primitive": "datetime"},
+        {"name": "Money", "type": "valuetype", "primitive": "number"},
         {"name": "member", "type": "propertytype", "domain": "Registration", "range": "Person"},
         {"name": "payer", "type": "propertytype", "domain": "Registration", "range": "Person"},
-        {"name": "starting day", "type": "attributetype", "domain": "Registration", "range": "datetime"},
-        {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "datetime"},
+        {"name": "starting day", "type": "attributetype", "domain": "StartedRegistration", "range": "Day"},
+        {"name": "ending day", "type": "attributetype", "domain": "EndedRegistration", "range": "Day"},
+        {"name": "year", "type": "attributetype", "domain": "YearE", "range": "YearV"},
+        {"name": "standard registration fee", "type": "attributetype", "domain": "YearE", "range": "Money"},
+        {"name": "standard renewal fee", "type": "attributetype", "domain": "YearE", "range": "Money"},
+        {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "Day"},
+        {"name": "paid amount", "type": "attributetype", "domain": "AnnualRegistrationPayment", "range": "Money"},
         {"name": "nationality", "type": "attributetype", "domain": "Person", "range": "Nationality"},
-        {"name": "StartedRegistration", "type": "eventtype", "parameter": "Registration", "product": "registration is started"},
-        {"name": "EndedRegistration", "type": "eventtype", "parameter": "Registration", "product": "registration is ended"},
-        {"name": "PersonAge", "type": "derived", "parameter": "person"}
+        {"name": "PersonAge", "type": "derived", "parameters": ["Person", "Day"], "result": "primitive:integer"},
+        {"name": "PersonHasActiveRegistration", "type": "derived", "parameters": ["Person", "Day"], "result": "primitive:boolean"}
     ],
     "actionrules": 
     [
-        {"actorrole": "AR01", "name": "T01rq"}
+        {"id": "ARS01", "actorrole": "AR01", "when": "T01rq", "while": []},
+        {"id": "ARS02", "actorrole": "AR01", "when": "T01pm", "while": []},
+        {"id": "ARS03", "actorrole": "AR01", "when": "T02da", "while": []},
+        {"id": "ARS04", "actorrole": "AR01", "when": "T01pm", "while": ["T02ac"]},
+        {"id": "ARS05", "actorrole": "AR03", "when": "T03rq", "while": []},
+        {"id": "ARS06", "actorrole": "AR03", "when": "T03pm", "while": []},
+        {"id": "ARS07", "actorrole": "AR04", "when": "T04rq", "while": []},
+        {"id": "ARS08", "actorrole": "AR04", "when": "T01pm", "while": []},
+        {"id": "ARS09", "actorrole": "AR04", "when": "T03da", "while": []},
+        {"id": "ARS10", "actorrole": "AR04", "when": "T04da", "while": []},
+        {"id": "ARS11", "actorrole": "AR04", "when": "T04pm", "while-all": ["T03ac"]}
     ],
     "oivs": [
         {"name": "functionary type"},
