@@ -10,7 +10,8 @@ await simpleModel.openExistingApp(descriptor.appid);
 await simpleModel.deleteModules(descriptor.defaultmodule, true);
 const simpleModule = simpleModel.addModule(descriptor.defaultmodule + (new Date()).toISOString());
 const [userRole] = await simpleModule.addModuleRoles({ User: "User" });
-simpleModule.addEntity("AssessmentResult", undefined, false).addBooleanAttribute("AssessmentResult");
+const assResult = simpleModule.addEntity("AssessmentResult", undefined, false);
+assResult.addBooleanAttribute("AssessmentResult");
 /*
 case "eventtype":
             
@@ -94,6 +95,7 @@ for (let factkind of demomodel.factkinds) {
             break;
         case "derived":
             const newMF = simpleModule.addMicroflow("Calculate_" + factkind.name);
+            // TODO: set return type
             for (let parameter of factkind.parameters) {
                 if (entities[parameter])
                     newMF.addMicroflowParameter(parameter, DataType.Entity, entities[parameter]._entity);
@@ -113,7 +115,7 @@ for (let factkind of demomodel.factkinds) {
                             break;
                         default: throw new Error(primitives[parameter] + "not supported");
                     }
-                newMF.addEndEvent(newMF.getStartEvent(), 1);
+                newMF.addEndEvent(newMF.startEvent, 1);
             }
             break;
         default: throw new Error(factkind.type + "not supported");
@@ -123,7 +125,8 @@ for (let factkind of demomodel.factkinds) {
 for (let actionrule of demomodel.actionrules) {
     // process event part...
     const newMF = simpleModule.addMicroflow("AssessTruth_" + actionrule.actorrole + "_" + actionrule.id);
-    newMF.addEndEvent(newMF.getStartEvent(), 1);
+    // TODO: assResult as return type
+    newMF.addEndEvent(newMF.startEvent, 1);
     //newMF.addMicroflowObjectParameter("Account", entityAccountToValidate, "The object to validate");
     // process response part...
 }

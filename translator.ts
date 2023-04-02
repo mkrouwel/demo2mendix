@@ -128,7 +128,7 @@ for (let actionrule of demomodel.actionrules) {
     // process event part...
     const newMF: SimpleMicroflow = simpleModule.addMicroflow("AssessTruth_" + actionrule.actorrole + "_" + actionrule.id);
     // TODO: assResult as return type
-    newMF.addEndEvent(newMF.getStartEvent(), 1);
+    newMF.addEndEvent(newMF.startEvent, 1);
     //newMF.addMicroflowObjectParameter("Account", entityAccountToValidate, "The object to validate");
     // process response part...
 }
