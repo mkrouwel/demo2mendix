@@ -124,7 +124,7 @@ export declare namespace security {
     /**
      * See: {@link https://docs.mendix.com/refguide/module-security relevant section in reference guide}
      */
-    interface IModuleSecurity extends internal.IModelUnit {
+    interface IModuleSecurity extends projects.IModuleDocument {
         readonly model: IModel;
         readonly containerAsModule: projects.IModule;
         readonly moduleRoles: internal.IList<IModuleRole>;
@@ -135,7 +135,7 @@ export declare namespace security {
     /**
      * See: {@link https://docs.mendix.com/refguide/module-security relevant section in reference guide}
      */
-    class ModuleSecurity extends internal.ModelUnit<IModel> implements IModuleSecurity {
+    class ModuleSecurity extends projects.ModuleDocument implements IModuleSecurity {
         static structureTypeName: string;
         static versionInfo: StructureVersionInfo;
         get containerAsModule(): projects.Module;
@@ -235,6 +235,11 @@ export declare namespace security {
          */
         get imageAccess(): ImageAccessRuleContainer;
         set imageAccess(newValue: ImageAccessRuleContainer);
+        /**
+         * In version 9.24.0: introduced
+         */
+        get strictMode(): boolean;
+        set strictMode(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, container: projects.IProject);
         /**
          * Creates a new ProjectSecurity unit in the SDK and on the server.

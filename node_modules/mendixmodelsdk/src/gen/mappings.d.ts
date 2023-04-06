@@ -131,6 +131,7 @@ export declare namespace mappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): MappingDocument;
         get containerAsObjectMappingElement(): ObjectMappingElement;
+        get containerAsImplicitExportMapping(): rest.ImplicitExportMapping;
         get documentation(): string;
         set documentation(newValue: string);
         get elementType(): ElementType;
@@ -240,6 +241,7 @@ export declare namespace mappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): MappingDocument;
         get containerAsObjectMappingElement(): ObjectMappingElement;
+        get containerAsImplicitExportMapping(): rest.ImplicitExportMapping;
         get mappingMicroflowCall(): MappingMicroflowCall | null;
         set mappingMicroflowCall(newValue: MappingMicroflowCall | null);
         get children(): internal.IList<MappingElement>;
@@ -317,6 +319,7 @@ import { domainmodels } from "./domainmodels";
 import { jsonstructures } from "./jsonstructures";
 import { messagedefinitions } from "./messagedefinitions";
 import { microflows } from "./microflows";
+import { rest } from "./rest";
 import { webservices } from "./webservices";
 import { xmlschemas } from "./xmlschemas";
 import { IModel } from "./base-model";

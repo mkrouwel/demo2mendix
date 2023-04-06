@@ -163,6 +163,10 @@ export declare namespace codeactions {
          */
         readonly actionReturnType: IType;
         /**
+         * In version 9.23.0: introduced
+         */
+        readonly actionDefaultReturnName: string;
+        /**
          * In version 7.21.0: introduced
          */
         readonly modelerActionInfo: IMicroflowActionInfo | null;
@@ -187,6 +191,11 @@ export declare namespace codeactions {
          */
         get actionReturnType(): Type;
         set actionReturnType(newValue: Type);
+        /**
+         * In version 9.23.0: introduced
+         */
+        get actionDefaultReturnName(): string;
+        set actionDefaultReturnName(newValue: string);
         /**
          * In version 7.21.0: introduced
          */

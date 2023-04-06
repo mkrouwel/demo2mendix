@@ -15,6 +15,14 @@ export declare namespace navigation {
         static NoneAndPreserveData: OfflineEntitySyncDownloadMode;
         protected qualifiedTsTypeName: string;
     }
+    class OfflineEntitySyncMode extends internal.AbstractEnum {
+        static All: OfflineEntitySyncMode;
+        static Constrained: OfflineEntitySyncMode;
+        static None: OfflineEntitySyncMode;
+        static NoneAndPreserveData: OfflineEntitySyncMode;
+        static Never: OfflineEntitySyncMode;
+        protected qualifiedTsTypeName: string;
+    }
     class ProfileKind extends internal.AbstractEnum {
         static Responsive: ProfileKind;
         static ResponsiveOffline: ProfileKind;
@@ -200,6 +208,11 @@ export declare namespace navigation {
          */
         get encryptionDbEnabled(): boolean;
         set encryptionDbEnabled(newValue: boolean);
+        /**
+         * In version 9.22.0: introduced
+         */
+        get localFileEncryptionEnabled(): boolean;
+        set localFileEncryptionEnabled(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new NativeNavigationProfile instance in the SDK and on the server.
@@ -480,6 +493,7 @@ export declare namespace navigation {
         set entity(newValue: domainmodels.IEntity);
         get entityQualifiedName(): string;
         /**
+         * In version 9.24.0: deleted
          * In version 8.9.0: introduced
          */
         get downloadMode(): OfflineEntitySyncDownloadMode;
@@ -489,6 +503,11 @@ export declare namespace navigation {
          */
         get shouldDownload(): boolean;
         set shouldDownload(newValue: boolean);
+        /**
+         * In version 9.24.0: introduced
+         */
+        get syncMode(): OfflineEntitySyncMode;
+        set syncMode(newValue: OfflineEntitySyncMode);
         /**
          * The value of this property is conceptually of type xPathConstraints.XPathConstraint.
          */

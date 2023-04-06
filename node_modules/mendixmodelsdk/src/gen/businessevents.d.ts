@@ -1,9 +1,6 @@
 import * as internal from "../sdk/internal";
 export import StructureVersionInfo = internal.StructureVersionInfo;
 import { projects } from "./projects";
-/**
- * @ignore
- */
 export declare namespace businessevents {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `BusinessEvents`.
@@ -13,6 +10,130 @@ export declare namespace businessevents {
      *
      * @ignore
      *
+     * In version 9.24.0: introduced
+     */
+    class BusinessEventDefinition extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsBusinessEventService(): BusinessEventService;
+        get serviceName(): string;
+        set serviceName(newValue: string);
+        get eventNamePrefix(): string;
+        set eventNamePrefix(newValue: string);
+        get description(): string;
+        set description(newValue: string);
+        get summary(): string;
+        set summary(newValue: string);
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get channels(): internal.IList<Channel>;
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new BusinessEventDefinition instance in the SDK and on the server.
+         * The new BusinessEventDefinition will be automatically stored in the 'definition' property
+         * of the parent BusinessEventService element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: BusinessEventService): BusinessEventDefinition;
+        /**
+         * Creates and returns a new BusinessEventDefinition instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): BusinessEventDefinition;
+    }
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    interface IBusinessEventService extends projects.IDocument {
+        readonly model: IModel;
+        readonly containerAsFolderBase: projects.IFolderBase;
+        asLoaded(): BusinessEventService;
+        load(callback: (element: BusinessEventService) => void, forceRefresh?: boolean): void;
+        load(forceRefresh?: boolean): Promise<BusinessEventService>;
+    }
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class BusinessEventService extends projects.Document implements IBusinessEventService {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsFolderBase(): projects.FolderBase;
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get definition(): BusinessEventDefinition | null;
+        set definition(newValue: BusinessEventDefinition | null);
+        get document(): string;
+        set document(newValue: string);
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get operationImplementations(): internal.IList<ServiceOperation>;
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, container: projects.IFolderBase);
+        /**
+         * Creates a new BusinessEventService unit in the SDK and on the server.
+         * Expects one argument, the projects.IFolderBase in which this unit is contained.
+         */
+        static createIn(container: projects.IFolderBase): BusinessEventService;
+    }
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class Channel extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsBusinessEventDefinition(): BusinessEventDefinition;
+        get channelName(): string;
+        set channelName(newValue: string);
+        get description(): string;
+        set description(newValue: string);
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get messages(): internal.IList<Message>;
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new Channel instance in the SDK and on the server.
+         * The new Channel will be automatically stored in the 'channels' property
+         * of the parent BusinessEventDefinition element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: BusinessEventDefinition): Channel;
+        /**
+         * Creates and returns a new Channel instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): Channel;
+    }
+    /**
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     class ConsumedBusinessEvent extends internal.Element<IModel> {
@@ -39,7 +160,7 @@ export declare namespace businessevents {
          * of the parent ConsumedBusinessEventService element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.11.0 and higher
+         *  9.11.0 to 9.23.0
          */
         static createIn(container: ConsumedBusinessEventService): ConsumedBusinessEvent;
         /**
@@ -50,10 +171,7 @@ export declare namespace businessevents {
         static create(model: IModel): ConsumedBusinessEvent;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.8.0: introduced
      */
     interface IConsumedBusinessEventService extends projects.IDocument {
@@ -64,10 +182,7 @@ export declare namespace businessevents {
         load(forceRefresh?: boolean): Promise<ConsumedBusinessEventService>;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.8.0: introduced
      */
     class ConsumedBusinessEventService extends projects.Document implements IConsumedBusinessEventService {
@@ -85,10 +200,6 @@ export declare namespace businessevents {
         get contract(): string;
         set contract(newValue: string);
         /**
-         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
-         *
-         * @ignore
-         *
          * In version 9.11.0: introduced
          */
         get businessEvents(): internal.IList<ConsumedBusinessEvent>;
@@ -104,6 +215,79 @@ export declare namespace businessevents {
      *
      * @ignore
      *
+     * In version 9.24.0: introduced
+     */
+    class Message extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsChannel(): Channel;
+        get messageName(): string;
+        set messageName(newValue: string);
+        get description(): string;
+        set description(newValue: string);
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get attributes(): internal.IList<MessageAttribute>;
+        get canPublish(): boolean;
+        set canPublish(newValue: boolean);
+        get canSubscribe(): boolean;
+        set canSubscribe(newValue: boolean);
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new Message instance in the SDK and on the server.
+         * The new Message will be automatically stored in the 'messages' property
+         * of the parent Channel element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: Channel): Message;
+        /**
+         * Creates and returns a new Message instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): Message;
+    }
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class MessageAttribute extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsMessage(): Message;
+        get attributeType(): domainmodels.AttributeType;
+        set attributeType(newValue: domainmodels.AttributeType);
+        get attributeName(): string;
+        set attributeName(newValue: string);
+        get description(): string;
+        set description(newValue: string);
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new MessageAttribute instance in the SDK and on the server.
+         * The new MessageAttribute will be automatically stored in the 'attributes' property
+         * of the parent Message element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: Message): MessageAttribute;
+        /**
+         * Creates and returns a new MessageAttribute instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): MessageAttribute;
+    }
+    /**
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     interface IPublishedBusinessEventService extends projects.IDocument {
@@ -114,10 +298,7 @@ export declare namespace businessevents {
         load(forceRefresh?: boolean): Promise<PublishedBusinessEventService>;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     class PublishedBusinessEventService extends projects.Document implements IPublishedBusinessEventService {
@@ -137,11 +318,6 @@ export declare namespace businessevents {
         set description(newValue: string);
         get summary(): string;
         set summary(newValue: string);
-        /**
-         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
-         *
-         * @ignore
-         */
         get channels(): internal.IList<PublishedChannel>;
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, container: projects.IFolderBase);
         /**
@@ -151,10 +327,7 @@ export declare namespace businessevents {
         static createIn(container: projects.IFolderBase): PublishedBusinessEventService;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     class PublishedChannel extends internal.Element<IModel> {
@@ -167,11 +340,6 @@ export declare namespace businessevents {
         set channelName(newValue: string);
         get description(): string;
         set description(newValue: string);
-        /**
-         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
-         *
-         * @ignore
-         */
         get messages(): internal.IList<PublishedMessage>;
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
@@ -180,7 +348,7 @@ export declare namespace businessevents {
          * of the parent PublishedBusinessEventService element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.11.0 and higher
+         *  9.11.0 to 9.23.0
          */
         static createIn(container: PublishedBusinessEventService): PublishedChannel;
         /**
@@ -191,10 +359,7 @@ export declare namespace businessevents {
         static create(model: IModel): PublishedChannel;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     class PublishedMessage extends internal.Element<IModel> {
@@ -218,11 +383,6 @@ export declare namespace businessevents {
         set description(newValue: string);
         get summary(): string;
         set summary(newValue: string);
-        /**
-         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
-         *
-         * @ignore
-         */
         get attributes(): internal.IList<PublishedMessageAttribute>;
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
@@ -231,7 +391,7 @@ export declare namespace businessevents {
          * of the parent PublishedChannel element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.11.0 and higher
+         *  9.11.0 to 9.23.0
          */
         static createIn(container: PublishedChannel): PublishedMessage;
         /**
@@ -242,10 +402,7 @@ export declare namespace businessevents {
         static create(model: IModel): PublishedMessage;
     }
     /**
-     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
-     *
-     * @ignore
-     *
+     * In version 9.24.0: deleted
      * In version 9.11.0: introduced
      */
     class PublishedMessageAttribute extends internal.Element<IModel> {
@@ -271,7 +428,7 @@ export declare namespace businessevents {
          * of the parent PublishedMessage element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.11.0 and higher
+         *  9.11.0 to 9.23.0
          */
         static createIn(container: PublishedMessage): PublishedMessageAttribute;
         /**
@@ -280,6 +437,44 @@ export declare namespace businessevents {
          * After creation, assign or add this instance to a property that accepts this kind of objects.
          */
         static create(model: IModel): PublishedMessageAttribute;
+    }
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class ServiceOperation extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsBusinessEventService(): BusinessEventService;
+        get messageName(): string;
+        set messageName(newValue: string);
+        get operation(): string;
+        set operation(newValue: string);
+        get entity(): domainmodels.IEntity;
+        set entity(newValue: domainmodels.IEntity);
+        get entityQualifiedName(): string;
+        get microflow(): microflows.IMicroflow | null;
+        set microflow(newValue: microflows.IMicroflow | null);
+        get microflowQualifiedName(): string | null;
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new ServiceOperation instance in the SDK and on the server.
+         * The new ServiceOperation will be automatically stored in the 'operationImplementations' property
+         * of the parent BusinessEventService element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: BusinessEventService): ServiceOperation;
+        /**
+         * Creates and returns a new ServiceOperation instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): ServiceOperation;
     }
 }
 import { domainmodels } from "./domainmodels";

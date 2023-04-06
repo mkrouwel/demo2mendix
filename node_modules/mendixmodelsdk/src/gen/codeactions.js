@@ -225,6 +225,8 @@ var codeactions;
             /** @internal */
             this.__actionReturnType = new internal.PartProperty(CodeAction, this, "actionReturnType", null, true);
             /** @internal */
+            this.__actionDefaultReturnName = new internal.PrimitiveProperty(CodeAction, this, "actionDefaultReturnName", "ReturnValueName", internal.PrimitiveTypeEnum.String);
+            /** @internal */
             this.__modelerActionInfo = new internal.PartProperty(CodeAction, this, "modelerActionInfo", null, false);
             /** @internal */
             this.__actionParameters = new internal.PartListProperty(CodeAction, this, "actionParameters", []);
@@ -248,6 +250,15 @@ var codeactions;
             this.__actionReturnType.set(newValue);
         }
         /**
+         * In version 9.23.0: introduced
+         */
+        get actionDefaultReturnName() {
+            return this.__actionDefaultReturnName.get();
+        }
+        set actionDefaultReturnName(newValue) {
+            this.__actionDefaultReturnName.set(newValue);
+        }
+        /**
          * In version 7.21.0: introduced
          */
         get modelerActionInfo() {
@@ -265,6 +276,9 @@ var codeactions;
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
+            if (this.__actionDefaultReturnName.isAvailable) {
+                this.actionDefaultReturnName = "ReturnValueName";
+            }
             if (this.__actionReturnType.isAvailable) {
                 (() => {
                     if (internal.isAtLeast("8.3.0", this.model)) {
@@ -291,6 +305,12 @@ var codeactions;
                     currentValue: true
                 },
                 required: {
+                    currentValue: true
+                }
+            },
+            actionDefaultReturnName: {
+                introduced: "9.23.0",
+                public: {
                     currentValue: true
                 }
             },

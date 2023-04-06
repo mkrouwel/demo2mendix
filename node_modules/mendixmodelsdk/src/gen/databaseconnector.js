@@ -1,0 +1,911 @@
+"use strict";
+/* tslint:disable */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.databaseconnector = exports.StructureVersionInfo = void 0;
+const internal = require("../sdk/internal");
+exports.StructureVersionInfo = internal.StructureVersionInfo;
+const projects_1 = require("./projects");
+const microflows_1 = require("./microflows");
+/**
+ * @ignore
+ */
+var databaseconnector;
+(function (databaseconnector) {
+    /**
+     * Interfaces and instance classes for types from the Mendix sub meta model `DatabaseConnector`.
+     */
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class ColumnMapping extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__columnName = new internal.PrimitiveProperty(ColumnMapping, this, "columnName", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__sqlDataType = new internal.PartProperty(ColumnMapping, this, "sqlDataType", null, false);
+            /** @internal */
+            this.__attribute = new internal.ByNameReferenceProperty(ColumnMapping, this, "attribute", null, "DomainModels$Attribute");
+            if (arguments.length < 4) {
+                throw new Error("new ColumnMapping() cannot be invoked directly, please use 'model.databaseconnector.createColumnMapping()'");
+            }
+        }
+        get containerAsTableMapping() {
+            return super.getContainerAs(TableMapping);
+        }
+        get columnName() {
+            return this.__columnName.get();
+        }
+        set columnName(newValue) {
+            this.__columnName.set(newValue);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get sqlDataType() {
+            return this.__sqlDataType.get();
+        }
+        set sqlDataType(newValue) {
+            this.__sqlDataType.set(newValue);
+        }
+        get attribute() {
+            return this.__attribute.get();
+        }
+        set attribute(newValue) {
+            this.__attribute.set(newValue);
+        }
+        get attributeQualifiedName() {
+            return this.__attribute.qualifiedName();
+        }
+        /**
+         * Creates and returns a new ColumnMapping instance in the SDK and on the server.
+         * The new ColumnMapping will be automatically stored in the 'columns' property
+         * of the parent TableMapping element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, ColumnMapping.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, ColumnMapping, "columns", true);
+        }
+        /**
+         * Creates and returns a new ColumnMapping instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, ColumnMapping);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    ColumnMapping.structureTypeName = "DatabaseConnector$ColumnMapping";
+    ColumnMapping.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        properties: {
+            attribute: {
+                required: {
+                    currentValue: true
+                }
+            }
+        },
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.ColumnMapping = ColumnMapping;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class ConnectionDetails extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__host = new internal.PrimitiveProperty(ConnectionDetails, this, "host", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__port = new internal.PrimitiveProperty(ConnectionDetails, this, "port", 0, internal.PrimitiveTypeEnum.Integer);
+            /** @internal */
+            this.__databaseName = new internal.PrimitiveProperty(ConnectionDetails, this, "databaseName", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new ConnectionDetails() cannot be invoked directly, please use 'model.databaseconnector.createConnectionDetails()'");
+            }
+        }
+        get containerAsDatabaseConnection() {
+            return super.getContainerAs(DatabaseConnection);
+        }
+        get host() {
+            return this.__host.get();
+        }
+        set host(newValue) {
+            this.__host.set(newValue);
+        }
+        get port() {
+            return this.__port.get();
+        }
+        set port(newValue) {
+            this.__port.set(newValue);
+        }
+        get databaseName() {
+            return this.__databaseName.get();
+        }
+        set databaseName(newValue) {
+            this.__databaseName.set(newValue);
+        }
+        /**
+         * Creates and returns a new ConnectionDetails instance in the SDK and on the server.
+         * The new ConnectionDetails will be automatically stored in the 'connectionDetails' property
+         * of the parent DatabaseConnection element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, ConnectionDetails.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, ConnectionDetails, "connectionDetails", false);
+        }
+        /**
+         * Creates and returns a new ConnectionDetails instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, ConnectionDetails);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    ConnectionDetails.structureTypeName = "DatabaseConnector$ConnectionDetails";
+    ConnectionDetails.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.ConnectionDetails = ConnectionDetails;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class DatabaseConnection extends projects_1.projects.Document {
+        constructor(model, structureTypeName, id, isPartial, container) {
+            super(model, structureTypeName, id, isPartial, container);
+            /** @internal */
+            this.__databaseType = new internal.PrimitiveProperty(DatabaseConnection, this, "databaseType", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__connectionDetails = new internal.PartProperty(DatabaseConnection, this, "connectionDetails", null, false);
+            /** @internal */
+            this.__connectionString = new internal.ByNameReferenceProperty(DatabaseConnection, this, "connectionString", null, "Constants$Constant");
+            /** @internal */
+            this.__userName = new internal.ByNameReferenceProperty(DatabaseConnection, this, "userName", null, "Constants$Constant");
+            /** @internal */
+            this.__password = new internal.ByNameReferenceProperty(DatabaseConnection, this, "password", null, "Constants$Constant");
+            /** @internal */
+            this.__queries = new internal.PartListProperty(DatabaseConnection, this, "queries", []);
+            this._containmentName = "documents";
+        }
+        get containerAsFolderBase() {
+            return super.getContainerAs(projects_1.projects.FolderBase);
+        }
+        get databaseType() {
+            return this.__databaseType.get();
+        }
+        set databaseType(newValue) {
+            this.__databaseType.set(newValue);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get connectionDetails() {
+            return this.__connectionDetails.get();
+        }
+        set connectionDetails(newValue) {
+            this.__connectionDetails.set(newValue);
+        }
+        get connectionString() {
+            return this.__connectionString.get();
+        }
+        set connectionString(newValue) {
+            this.__connectionString.set(newValue);
+        }
+        get connectionStringQualifiedName() {
+            return this.__connectionString.qualifiedName();
+        }
+        get userName() {
+            return this.__userName.get();
+        }
+        set userName(newValue) {
+            this.__userName.set(newValue);
+        }
+        get userNameQualifiedName() {
+            return this.__userName.qualifiedName();
+        }
+        get password() {
+            return this.__password.get();
+        }
+        set password(newValue) {
+            this.__password.set(newValue);
+        }
+        get passwordQualifiedName() {
+            return this.__password.qualifiedName();
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get queries() {
+            return this.__queries.get();
+        }
+        /**
+         * Creates a new DatabaseConnection unit in the SDK and on the server.
+         * Expects one argument, the projects.IFolderBase in which this unit is contained.
+         */
+        static createIn(container) {
+            return internal.instancehelpers.createUnit(container, DatabaseConnection);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    DatabaseConnection.structureTypeName = "DatabaseConnector$DatabaseConnection";
+    DatabaseConnection.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        properties: {
+            queries: {
+                public: {
+                    currentValue: true
+                }
+            }
+        },
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.ModelUnit);
+    databaseconnector.DatabaseConnection = DatabaseConnection;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class DatabaseQuery extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__name = new internal.PrimitiveProperty(DatabaseQuery, this, "name", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__query = new internal.PrimitiveProperty(DatabaseQuery, this, "query", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__tableMapping = new internal.PartProperty(DatabaseQuery, this, "tableMapping", null, true);
+            /** @internal */
+            this.__parameters = new internal.PartListProperty(DatabaseQuery, this, "parameters", []);
+            if (arguments.length < 4) {
+                throw new Error("new DatabaseQuery() cannot be invoked directly, please use 'model.databaseconnector.createDatabaseQuery()'");
+            }
+        }
+        get containerAsDatabaseConnection() {
+            return super.getContainerAs(DatabaseConnection);
+        }
+        get name() {
+            return this.__name.get();
+        }
+        set name(newValue) {
+            this.__name.set(newValue);
+        }
+        get query() {
+            return this.__query.get();
+        }
+        set query(newValue) {
+            this.__query.set(newValue);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get tableMapping() {
+            return this.__tableMapping.get();
+        }
+        set tableMapping(newValue) {
+            this.__tableMapping.set(newValue);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get parameters() {
+            return this.__parameters.get();
+        }
+        /**
+         * Creates and returns a new DatabaseQuery instance in the SDK and on the server.
+         * The new DatabaseQuery will be automatically stored in the 'queries' property
+         * of the parent DatabaseConnection element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, DatabaseQuery.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, DatabaseQuery, "queries", true);
+        }
+        /**
+         * Creates and returns a new DatabaseQuery instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, DatabaseQuery);
+        }
+        /** @internal */
+        _isByNameReferrable() {
+            return this.__name.isAvailable;
+        }
+        get qualifiedName() {
+            return this._getQualifiedName();
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+            this.tableMapping = TableMapping.create(this.model);
+        }
+    }
+    DatabaseQuery.structureTypeName = "DatabaseConnector$DatabaseQuery";
+    DatabaseQuery.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        properties: {
+            name: {
+                public: {
+                    currentValue: true
+                }
+            },
+            tableMapping: {
+                required: {
+                    currentValue: true
+                }
+            }
+        },
+        public: {
+            currentValue: true
+        },
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.DatabaseQuery = DatabaseQuery;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class ExecuteDatabaseQueryAction extends microflows_1.microflows.MicroflowAction {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__query = new internal.ByNameReferenceProperty(ExecuteDatabaseQueryAction, this, "query", null, "DatabaseConnector$DatabaseQuery");
+            /** @internal */
+            this.__parameterMappings = new internal.PartListProperty(ExecuteDatabaseQueryAction, this, "parameterMappings", []);
+            /** @internal */
+            this.__outputVariableName = new internal.PrimitiveProperty(ExecuteDatabaseQueryAction, this, "outputVariableName", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new ExecuteDatabaseQueryAction() cannot be invoked directly, please use 'model.databaseconnector.createExecuteDatabaseQueryAction()'");
+            }
+        }
+        get containerAsActionActivity() {
+            return super.getContainerAs(microflows_1.microflows.ActionActivity);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get query() {
+            return this.__query.get();
+        }
+        set query(newValue) {
+            this.__query.set(newValue);
+        }
+        get queryQualifiedName() {
+            return this.__query.qualifiedName();
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get parameterMappings() {
+            return this.__parameterMappings.get();
+        }
+        get outputVariableName() {
+            return this.__outputVariableName.get();
+        }
+        set outputVariableName(newValue) {
+            this.__outputVariableName.set(newValue);
+        }
+        /**
+         * Creates and returns a new ExecuteDatabaseQueryAction instance in the SDK and on the server.
+         * The new ExecuteDatabaseQueryAction will be automatically stored in the 'action' property
+         * of the parent microflows.ActionActivity element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, ExecuteDatabaseQueryAction.structureTypeName, { start: "9.24.0" });
+            return internal.instancehelpers.createElement(container, ExecuteDatabaseQueryAction, "action", false);
+        }
+        /**
+         * Creates and returns a new ExecuteDatabaseQueryAction instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, ExecuteDatabaseQueryAction);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    ExecuteDatabaseQueryAction.structureTypeName = "DatabaseConnector$ExecuteDatabaseQueryAction";
+    ExecuteDatabaseQueryAction.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.24.0",
+        properties: {
+            query: {
+                required: {
+                    currentValue: true
+                }
+            }
+        },
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.ExecuteDatabaseQueryAction = ExecuteDatabaseQueryAction;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class SqlDataType extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__dataTypeName = new internal.PrimitiveProperty(SqlDataType, this, "dataTypeName", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new SqlDataType() cannot be invoked directly, please use 'model.databaseconnector.createSqlDataType()'");
+            }
+        }
+        get containerAsColumnMapping() {
+            return super.getContainerAs(ColumnMapping);
+        }
+        get containerAsQueryParameter() {
+            return super.getContainerAs(QueryParameter);
+        }
+        get dataTypeName() {
+            return this.__dataTypeName.get();
+        }
+        set dataTypeName(newValue) {
+            this.__dataTypeName.set(newValue);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    SqlDataType.structureTypeName = "DatabaseConnector$SqlDataType";
+    SqlDataType.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.SqlDataType = SqlDataType;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class LimitedLengthSqlDataType extends SqlDataType {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__length = new internal.PrimitiveProperty(LimitedLengthSqlDataType, this, "length", 0, internal.PrimitiveTypeEnum.Integer);
+            if (arguments.length < 4) {
+                throw new Error("new LimitedLengthSqlDataType() cannot be invoked directly, please use 'model.databaseconnector.createLimitedLengthSqlDataType()'");
+            }
+        }
+        get containerAsColumnMapping() {
+            return super.getContainerAs(ColumnMapping);
+        }
+        get containerAsQueryParameter() {
+            return super.getContainerAs(QueryParameter);
+        }
+        get length() {
+            return this.__length.get();
+        }
+        set length(newValue) {
+            this.__length.set(newValue);
+        }
+        /**
+         * Creates and returns a new LimitedLengthSqlDataType instance in the SDK and on the server.
+         * The new LimitedLengthSqlDataType will be automatically stored in the 'sqlDataType' property
+         * of the parent ColumnMapping element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createInColumnMappingUnderSqlDataType(container) {
+            internal.createInVersionCheck(container.model, LimitedLengthSqlDataType.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, LimitedLengthSqlDataType, "sqlDataType", false);
+        }
+        /**
+         * Creates and returns a new LimitedLengthSqlDataType instance in the SDK and on the server.
+         * The new LimitedLengthSqlDataType will be automatically stored in the 'sqlDataType' property
+         * of the parent QueryParameter element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createInQueryParameterUnderSqlDataType(container) {
+            internal.createInVersionCheck(container.model, LimitedLengthSqlDataType.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, LimitedLengthSqlDataType, "sqlDataType", false);
+        }
+        /**
+         * Creates and returns a new LimitedLengthSqlDataType instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, LimitedLengthSqlDataType);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    LimitedLengthSqlDataType.structureTypeName = "DatabaseConnector$LimitedLengthSqlDataType";
+    LimitedLengthSqlDataType.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.LimitedLengthSqlDataType = LimitedLengthSqlDataType;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class QueryParameter extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__parameterName = new internal.PrimitiveProperty(QueryParameter, this, "parameterName", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__sqlDataType = new internal.PartProperty(QueryParameter, this, "sqlDataType", null, false);
+            /** @internal */
+            this.__dataType = new internal.PartProperty(QueryParameter, this, "dataType", null, false);
+            /** @internal */
+            this.__defaultValue = new internal.PrimitiveProperty(QueryParameter, this, "defaultValue", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new QueryParameter() cannot be invoked directly, please use 'model.databaseconnector.createQueryParameter()'");
+            }
+        }
+        get containerAsDatabaseQuery() {
+            return super.getContainerAs(DatabaseQuery);
+        }
+        get parameterName() {
+            return this.__parameterName.get();
+        }
+        set parameterName(newValue) {
+            this.__parameterName.set(newValue);
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get sqlDataType() {
+            return this.__sqlDataType.get();
+        }
+        set sqlDataType(newValue) {
+            this.__sqlDataType.set(newValue);
+        }
+        get dataType() {
+            return this.__dataType.get();
+        }
+        set dataType(newValue) {
+            this.__dataType.set(newValue);
+        }
+        get defaultValue() {
+            return this.__defaultValue.get();
+        }
+        set defaultValue(newValue) {
+            this.__defaultValue.set(newValue);
+        }
+        /**
+         * Creates and returns a new QueryParameter instance in the SDK and on the server.
+         * The new QueryParameter will be automatically stored in the 'parameters' property
+         * of the parent DatabaseQuery element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, QueryParameter.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, QueryParameter, "parameters", true);
+        }
+        /**
+         * Creates and returns a new QueryParameter instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, QueryParameter);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    QueryParameter.structureTypeName = "DatabaseConnector$QueryParameter";
+    QueryParameter.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.QueryParameter = QueryParameter;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.24.0: introduced
+     */
+    class QueryParameterMapping extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__parameterName = new internal.PrimitiveProperty(QueryParameterMapping, this, "parameterName", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__value = new internal.PrimitiveProperty(QueryParameterMapping, this, "value", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new QueryParameterMapping() cannot be invoked directly, please use 'model.databaseconnector.createQueryParameterMapping()'");
+            }
+        }
+        get containerAsExecuteDatabaseQueryAction() {
+            return super.getContainerAs(ExecuteDatabaseQueryAction);
+        }
+        get parameterName() {
+            return this.__parameterName.get();
+        }
+        set parameterName(newValue) {
+            this.__parameterName.set(newValue);
+        }
+        /**
+         * The value of this property is conceptually of type microflowExpressions.MicroflowExpression.
+         */
+        get value() {
+            return this.__value.get();
+        }
+        set value(newValue) {
+            this.__value.set(newValue);
+        }
+        /**
+         * Creates and returns a new QueryParameterMapping instance in the SDK and on the server.
+         * The new QueryParameterMapping will be automatically stored in the 'parameterMappings' property
+         * of the parent ExecuteDatabaseQueryAction element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, QueryParameterMapping.structureTypeName, { start: "9.24.0" });
+            return internal.instancehelpers.createElement(container, QueryParameterMapping, "parameterMappings", true);
+        }
+        /**
+         * Creates and returns a new QueryParameterMapping instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, QueryParameterMapping);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    QueryParameterMapping.structureTypeName = "DatabaseConnector$QueryParameterMapping";
+    QueryParameterMapping.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.24.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.QueryParameterMapping = QueryParameterMapping;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class SimpleSqlDataType extends SqlDataType {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            if (arguments.length < 4) {
+                throw new Error("new SimpleSqlDataType() cannot be invoked directly, please use 'model.databaseconnector.createSimpleSqlDataType()'");
+            }
+        }
+        get containerAsColumnMapping() {
+            return super.getContainerAs(ColumnMapping);
+        }
+        get containerAsQueryParameter() {
+            return super.getContainerAs(QueryParameter);
+        }
+        /**
+         * Creates and returns a new SimpleSqlDataType instance in the SDK and on the server.
+         * The new SimpleSqlDataType will be automatically stored in the 'sqlDataType' property
+         * of the parent ColumnMapping element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createInColumnMappingUnderSqlDataType(container) {
+            internal.createInVersionCheck(container.model, SimpleSqlDataType.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, SimpleSqlDataType, "sqlDataType", false);
+        }
+        /**
+         * Creates and returns a new SimpleSqlDataType instance in the SDK and on the server.
+         * The new SimpleSqlDataType will be automatically stored in the 'sqlDataType' property
+         * of the parent QueryParameter element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createInQueryParameterUnderSqlDataType(container) {
+            internal.createInVersionCheck(container.model, SimpleSqlDataType.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, SimpleSqlDataType, "sqlDataType", false);
+        }
+        /**
+         * Creates and returns a new SimpleSqlDataType instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, SimpleSqlDataType);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    SimpleSqlDataType.structureTypeName = "DatabaseConnector$SimpleSqlDataType";
+    SimpleSqlDataType.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.SimpleSqlDataType = SimpleSqlDataType;
+    /**
+     * NOTE: This class is experimental and is subject to change in newer Model SDK versions.
+     *
+     * @ignore
+     *
+     * In version 9.22.0: introduced
+     */
+    class TableMapping extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__tableName = new internal.PrimitiveProperty(TableMapping, this, "tableName", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__entity = new internal.ByNameReferenceProperty(TableMapping, this, "entity", null, "DomainModels$Entity");
+            /** @internal */
+            this.__columns = new internal.PartListProperty(TableMapping, this, "columns", []);
+            if (arguments.length < 4) {
+                throw new Error("new TableMapping() cannot be invoked directly, please use 'model.databaseconnector.createTableMapping()'");
+            }
+        }
+        get containerAsDatabaseQuery() {
+            return super.getContainerAs(DatabaseQuery);
+        }
+        get tableName() {
+            return this.__tableName.get();
+        }
+        set tableName(newValue) {
+            this.__tableName.set(newValue);
+        }
+        get entity() {
+            return this.__entity.get();
+        }
+        set entity(newValue) {
+            this.__entity.set(newValue);
+        }
+        get entityQualifiedName() {
+            return this.__entity.qualifiedName();
+        }
+        /**
+         * NOTE: This property is experimental and is subject to change in newer Model SDK versions.
+         *
+         * @ignore
+         */
+        get columns() {
+            return this.__columns.get();
+        }
+        /**
+         * Creates and returns a new TableMapping instance in the SDK and on the server.
+         * The new TableMapping will be automatically stored in the 'tableMapping' property
+         * of the parent DatabaseQuery element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.22.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, TableMapping.structureTypeName, { start: "9.22.0" });
+            return internal.instancehelpers.createElement(container, TableMapping, "tableMapping", false);
+        }
+        /**
+         * Creates and returns a new TableMapping instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, TableMapping);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    TableMapping.structureTypeName = "DatabaseConnector$TableMapping";
+    TableMapping.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.22.0",
+        properties: {
+            entity: {
+                required: {
+                    currentValue: true
+                }
+            }
+        },
+        experimental: {
+            currentValue: true
+        }
+    }, internal.StructureType.Element);
+    databaseconnector.TableMapping = TableMapping;
+})(databaseconnector = exports.databaseconnector || (exports.databaseconnector = {}));
+//# sourceMappingURL=databaseconnector.js.map

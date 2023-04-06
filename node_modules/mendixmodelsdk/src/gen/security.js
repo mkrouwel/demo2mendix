@@ -258,7 +258,7 @@ var security;
     /**
      * See: {@link https://docs.mendix.com/refguide/module-security relevant section in reference guide}
      */
-    class ModuleSecurity extends internal.ModelUnit {
+    class ModuleSecurity extends projects_1.projects.ModuleDocument {
         constructor(model, structureTypeName, id, isPartial, container) {
             super(model, structureTypeName, id, isPartial, container);
             /** @internal */
@@ -410,6 +410,8 @@ var security;
             this.__fileDocumentAccess = new internal.PartProperty(ProjectSecurity, this, "fileDocumentAccess", null, true);
             /** @internal */
             this.__imageAccess = new internal.PartProperty(ProjectSecurity, this, "imageAccess", null, true);
+            /** @internal */
+            this.__strictMode = new internal.PrimitiveProperty(ProjectSecurity, this, "strictMode", false, internal.PrimitiveTypeEnum.Boolean);
             this._containmentName = "projectDocuments";
         }
         get containerAsProject() {
@@ -515,6 +517,15 @@ var security;
             this.__imageAccess.set(newValue);
         }
         /**
+         * In version 9.24.0: introduced
+         */
+        get strictMode() {
+            return this.__strictMode.get();
+        }
+        set strictMode(newValue) {
+            this.__strictMode.set(newValue);
+        }
+        /**
          * Creates a new ProjectSecurity unit in the SDK and on the server.
          * Expects one argument, the projects.IProject in which this unit is contained.
          */
@@ -530,6 +541,9 @@ var security;
             this.imageAccess = ImageAccessRuleContainer.create(this.model);
             this.passwordPolicySettings = PasswordPolicySettings.create(this.model);
             this.securityLevel = SecurityLevel.CheckNothing;
+            if (this.__strictMode.isAvailable) {
+                this.strictMode = false;
+            }
             if (this.__strictPageUrlCheck.isAvailable) {
                 this.strictPageUrlCheck = true;
             }
@@ -564,6 +578,9 @@ var security;
                 required: {
                     currentValue: true
                 }
+            },
+            strictMode: {
+                introduced: "9.24.0"
             }
         }
     }, internal.StructureType.ModelUnit);

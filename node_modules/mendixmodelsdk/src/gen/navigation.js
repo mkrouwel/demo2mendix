@@ -28,6 +28,18 @@ var navigation;
     OfflineEntitySyncDownloadMode.None = new OfflineEntitySyncDownloadMode("None", {});
     OfflineEntitySyncDownloadMode.NoneAndPreserveData = new OfflineEntitySyncDownloadMode("NoneAndPreserveData", {});
     navigation.OfflineEntitySyncDownloadMode = OfflineEntitySyncDownloadMode;
+    class OfflineEntitySyncMode extends internal.AbstractEnum {
+        constructor() {
+            super(...arguments);
+            this.qualifiedTsTypeName = "navigation.OfflineEntitySyncMode";
+        }
+    }
+    OfflineEntitySyncMode.All = new OfflineEntitySyncMode("All", {});
+    OfflineEntitySyncMode.Constrained = new OfflineEntitySyncMode("Constrained", {});
+    OfflineEntitySyncMode.None = new OfflineEntitySyncMode("None", {});
+    OfflineEntitySyncMode.NoneAndPreserveData = new OfflineEntitySyncMode("NoneAndPreserveData", {});
+    OfflineEntitySyncMode.Never = new OfflineEntitySyncMode("Never", {});
+    navigation.OfflineEntitySyncMode = OfflineEntitySyncMode;
     class ProfileKind extends internal.AbstractEnum {
         constructor() {
             super(...arguments);
@@ -346,6 +358,8 @@ var navigation;
             this.__loggingEnabled = new internal.PrimitiveProperty(NativeNavigationProfile, this, "loggingEnabled", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__encryptionDbEnabled = new internal.PrimitiveProperty(NativeNavigationProfile, this, "encryptionDbEnabled", false, internal.PrimitiveTypeEnum.Boolean);
+            /** @internal */
+            this.__localFileEncryptionEnabled = new internal.PrimitiveProperty(NativeNavigationProfile, this, "localFileEncryptionEnabled", false, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new NativeNavigationProfile() cannot be invoked directly, please use 'model.navigation.createNativeNavigationProfile()'");
             }
@@ -418,6 +432,15 @@ var navigation;
             this.__encryptionDbEnabled.set(newValue);
         }
         /**
+         * In version 9.22.0: introduced
+         */
+        get localFileEncryptionEnabled() {
+            return this.__localFileEncryptionEnabled.get();
+        }
+        set localFileEncryptionEnabled(newValue) {
+            this.__localFileEncryptionEnabled.set(newValue);
+        }
+        /**
          * Creates and returns a new NativeNavigationProfile instance in the SDK and on the server.
          * The new NativeNavigationProfile will be automatically stored in the 'profiles' property
          * of the parent NavigationDocument element passed as argument.
@@ -442,6 +465,9 @@ var navigation;
             super._initializeDefaultProperties();
             if (this.__encryptionDbEnabled.isAvailable) {
                 this.encryptionDbEnabled = false;
+            }
+            if (this.__localFileEncryptionEnabled.isAvailable) {
+                this.localFileEncryptionEnabled = false;
             }
             if (this.__loggingEnabled.isAvailable) {
                 this.loggingEnabled = false;
@@ -482,6 +508,9 @@ var navigation;
             },
             encryptionDbEnabled: {
                 introduced: "9.18.0"
+            },
+            localFileEncryptionEnabled: {
+                introduced: "9.22.0"
             }
         },
         public: {
@@ -995,16 +1024,22 @@ var navigation;
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
             if (this.__appTitle.isAvailable) {
-                this.appTitle = ((text) => {
-                    text.translations.replace([
-                        ((translation) => {
-                            translation.languageCode = "en_US";
-                            translation.text = "Mendix";
-                            return translation;
-                        })(texts_1.texts.Translation.create(this.model))
-                    ]);
-                    return text;
-                })(texts_1.texts.Text.create(this.model));
+                (() => {
+                    if (internal.isAtLeast("9.23.0", this.model)) {
+                        this.appTitle = texts_1.texts.Text.create(this.model);
+                        return;
+                    }
+                    this.appTitle = ((text) => {
+                        text.translations.replace([
+                            ((translation) => {
+                                translation.languageCode = "en_US";
+                                translation.text = "Mendix";
+                                return translation;
+                            })(texts_1.texts.Translation.create(this.model))
+                        ]);
+                        return text;
+                    })(texts_1.texts.Text.create(this.model));
+                })();
             }
             if (this.__applicationTitle.isAvailable) {
                 (() => {
@@ -1116,6 +1151,8 @@ var navigation;
             /** @internal */
             this.__shouldDownload = new internal.PrimitiveProperty(OfflineEntityConfig, this, "shouldDownload", true, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
+            this.__syncMode = new internal.EnumProperty(OfflineEntityConfig, this, "syncMode", OfflineEntitySyncMode.All, OfflineEntitySyncMode);
+            /** @internal */
             this.__constraint = new internal.PrimitiveProperty(OfflineEntityConfig, this, "constraint", "", internal.PrimitiveTypeEnum.String);
             if (arguments.length < 4) {
                 throw new Error("new OfflineEntityConfig() cannot be invoked directly, please use 'model.navigation.createOfflineEntityConfig()'");
@@ -1134,6 +1171,7 @@ var navigation;
             return this.__entity.qualifiedName();
         }
         /**
+         * In version 9.24.0: deleted
          * In version 8.9.0: introduced
          */
         get downloadMode() {
@@ -1150,6 +1188,15 @@ var navigation;
         }
         set shouldDownload(newValue) {
             this.__shouldDownload.set(newValue);
+        }
+        /**
+         * In version 9.24.0: introduced
+         */
+        get syncMode() {
+            return this.__syncMode.get();
+        }
+        set syncMode(newValue) {
+            this.__syncMode.set(newValue);
         }
         /**
          * The value of this property is conceptually of type xPathConstraints.XPathConstraint.
@@ -1189,6 +1236,9 @@ var navigation;
             if (this.__shouldDownload.isAvailable) {
                 this.shouldDownload = true;
             }
+            if (this.__syncMode.isAvailable) {
+                this.syncMode = OfflineEntitySyncMode.All;
+            }
         }
     }
     OfflineEntityConfig.structureTypeName = "Navigation$OfflineEntityConfig";
@@ -1201,11 +1251,16 @@ var navigation;
                 }
             },
             downloadMode: {
-                introduced: "8.9.0"
+                introduced: "8.9.0",
+                deleted: "9.24.0",
+                deletionMessage: null
             },
             shouldDownload: {
                 deleted: "8.9.0",
                 deletionMessage: null
+            },
+            syncMode: {
+                introduced: "9.24.0"
             }
         },
         experimental: {

@@ -535,16 +535,22 @@ var documenttemplates;
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
-            this.caption = ((text) => {
-                text.translations.replace([
-                    ((translation) => {
-                        translation.languageCode = "en_US";
-                        translation.text = "Column";
-                        return translation;
-                    })(texts_1.texts.Translation.create(this.model))
-                ]);
-                return text;
-            })(texts_1.texts.Text.create(this.model));
+            (() => {
+                if (internal.isAtLeast("9.23.0", this.model)) {
+                    this.caption = texts_1.texts.Text.create(this.model);
+                    return;
+                }
+                this.caption = ((text) => {
+                    text.translations.replace([
+                        ((translation) => {
+                            translation.languageCode = "en_US";
+                            translation.text = "Column";
+                            return translation;
+                        })(texts_1.texts.Translation.create(this.model))
+                    ]);
+                    return text;
+                })(texts_1.texts.Text.create(this.model));
+            })();
             this.formattingInfo = pages_1.pages.FormattingInfo.create(this.model);
             this.oddRowsCell = DataGridCell.create(this.model);
             this.style = Style.create(this.model);
@@ -1586,16 +1592,22 @@ var documenttemplates;
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
-            this.caption = ((text) => {
-                text.translations.replace([
-                    ((translation) => {
-                        translation.languageCode = "en_US";
-                        translation.text = "Label";
-                        return translation;
-                    })(texts_1.texts.Translation.create(this.model))
-                ]);
-                return text;
-            })(texts_1.texts.Text.create(this.model));
+            (() => {
+                if (internal.isAtLeast("9.23.0", this.model)) {
+                    this.caption = texts_1.texts.Text.create(this.model);
+                    return;
+                }
+                this.caption = ((text) => {
+                    text.translations.replace([
+                        ((translation) => {
+                            translation.languageCode = "en_US";
+                            translation.text = "Label";
+                            return translation;
+                        })(texts_1.texts.Translation.create(this.model))
+                    ]);
+                    return text;
+                })(texts_1.texts.Text.create(this.model));
+            })();
             this.style = Style.create(this.model);
         }
     }
@@ -2391,16 +2403,22 @@ var documenttemplates;
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
-            this.caption = ((text) => {
-                text.translations.replace([
-                    ((translation) => {
-                        translation.languageCode = "en_US";
-                        translation.text = "Title";
-                        return translation;
-                    })(texts_1.texts.Translation.create(this.model))
-                ]);
-                return text;
-            })(texts_1.texts.Text.create(this.model));
+            (() => {
+                if (internal.isAtLeast("9.23.0", this.model)) {
+                    this.caption = texts_1.texts.Text.create(this.model);
+                    return;
+                }
+                this.caption = ((text) => {
+                    text.translations.replace([
+                        ((translation) => {
+                            translation.languageCode = "en_US";
+                            translation.text = "Title";
+                            return translation;
+                        })(texts_1.texts.Translation.create(this.model))
+                    ]);
+                    return text;
+                })(texts_1.texts.Text.create(this.model));
+            })();
             this.style = Style.create(this.model);
         }
     }

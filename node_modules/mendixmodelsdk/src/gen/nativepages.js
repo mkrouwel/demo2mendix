@@ -97,16 +97,22 @@ var nativepages;
             if (this.__action.isAvailable) {
                 this.action = pages_1.pages.NoClientAction.create(this.model);
             }
-            this.caption = ((text) => {
-                text.translations.replace([
-                    ((translation) => {
-                        translation.languageCode = "en_US";
-                        translation.text = "";
-                        return translation;
-                    })(texts_1.texts.Translation.create(this.model))
-                ]);
-                return text;
-            })(texts_1.texts.Text.create(this.model));
+            (() => {
+                if (internal.isAtLeast("9.23.0", this.model)) {
+                    this.caption = texts_1.texts.Text.create(this.model);
+                    return;
+                }
+                this.caption = ((text) => {
+                    text.translations.replace([
+                        ((translation) => {
+                            translation.languageCode = "en_US";
+                            translation.text = "";
+                            return translation;
+                        })(texts_1.texts.Translation.create(this.model))
+                    ]);
+                    return text;
+                })(texts_1.texts.Text.create(this.model));
+            })();
         }
     }
     BottomBarItem.structureTypeName = "NativePages$BottomBarItem";

@@ -602,6 +602,73 @@ var settings;
     CustomSetting.structureTypeName = "Settings$CustomSetting";
     CustomSetting.versionInfo = new exports.StructureVersionInfo({}, internal.StructureType.Element);
     settings.CustomSetting = CustomSetting;
+    /**
+     * In version 9.24.0: introduced
+     */
+    class DistributionSettings extends ProjectSettingsPart {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            /** @internal */
+            this.__isDistributable = new internal.PrimitiveProperty(DistributionSettings, this, "isDistributable", false, internal.PrimitiveTypeEnum.Boolean);
+            /** @internal */
+            this.__version = new internal.PrimitiveProperty(DistributionSettings, this, "version", "", internal.PrimitiveTypeEnum.String);
+            /** @internal */
+            this.__basedOnVersion = new internal.PrimitiveProperty(DistributionSettings, this, "basedOnVersion", "", internal.PrimitiveTypeEnum.String);
+            if (arguments.length < 4) {
+                throw new Error("new DistributionSettings() cannot be invoked directly, please use 'model.settings.createDistributionSettings()'");
+            }
+        }
+        get containerAsProjectSettings() {
+            return super.getContainerAs(ProjectSettings);
+        }
+        get isDistributable() {
+            return this.__isDistributable.get();
+        }
+        set isDistributable(newValue) {
+            this.__isDistributable.set(newValue);
+        }
+        get version() {
+            return this.__version.get();
+        }
+        set version(newValue) {
+            this.__version.set(newValue);
+        }
+        get basedOnVersion() {
+            return this.__basedOnVersion.get();
+        }
+        set basedOnVersion(newValue) {
+            this.__basedOnVersion.set(newValue);
+        }
+        /**
+         * Creates and returns a new DistributionSettings instance in the SDK and on the server.
+         * The new DistributionSettings will be automatically stored in the 'settingsParts' property
+         * of the parent ProjectSettings element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container) {
+            internal.createInVersionCheck(container.model, DistributionSettings.structureTypeName, { start: "9.24.0" });
+            return internal.instancehelpers.createElement(container, DistributionSettings, "settingsParts", true);
+        }
+        /**
+         * Creates and returns a new DistributionSettings instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model) {
+            return internal.instancehelpers.createElement(model, DistributionSettings);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    DistributionSettings.structureTypeName = "Settings$DistributionSettings";
+    DistributionSettings.versionInfo = new exports.StructureVersionInfo({
+        introduced: "9.24.0"
+    }, internal.StructureType.Element);
+    settings.DistributionSettings = DistributionSettings;
     class IntegrationProjectSettingsPart extends ProjectSettingsPart {
         constructor(model, structureTypeName, id, isPartial, unit, container) {
             super(model, structureTypeName, id, isPartial, unit, container);

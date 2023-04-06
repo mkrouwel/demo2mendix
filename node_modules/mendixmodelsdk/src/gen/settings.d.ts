@@ -251,6 +251,36 @@ export declare namespace settings {
          */
         static create(model: IModel): CustomSetting;
     }
+    /**
+     * In version 9.24.0: introduced
+     */
+    class DistributionSettings extends ProjectSettingsPart {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsProjectSettings(): ProjectSettings;
+        get isDistributable(): boolean;
+        set isDistributable(newValue: boolean);
+        get version(): string;
+        set version(newValue: string);
+        get basedOnVersion(): string;
+        set basedOnVersion(newValue: string);
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
+        /**
+         * Creates and returns a new DistributionSettings instance in the SDK and on the server.
+         * The new DistributionSettings will be automatically stored in the 'settingsParts' property
+         * of the parent ProjectSettings element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  9.24.0 and higher
+         */
+        static createIn(container: ProjectSettings): DistributionSettings;
+        /**
+         * Creates and returns a new DistributionSettings instance in the SDK and on the server.
+         * Expects one argument: the IModel object the instance will "live on".
+         * After creation, assign or add this instance to a property that accepts this kind of objects.
+         */
+        static create(model: IModel): DistributionSettings;
+    }
     class IntegrationProjectSettingsPart extends ProjectSettingsPart {
         static structureTypeName: string;
         static versionInfo: StructureVersionInfo;
