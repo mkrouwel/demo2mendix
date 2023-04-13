@@ -1,9 +1,9 @@
 {
     "transactionkinds": [
-        {"id": "TK01", "name": "registration starting", "type": "elementary", "casekinds": ["Registration"], "product": "registration is started", "productname": "StartedRegistration"},
-        {"id": "TK02", "name": "registration paying", "type": "elementary", "casekinds": ["Registration", "YearE"], "product": "the fee for registration in year is paid", "productname": "AnnualRegistrationPayment"},
-        {"id": "TK03", "name": "registration ending", "type": "elementary", "casekinds": ["Registration"], "product": "registration is ended", "productname": "EndedRegistration"},
-        {"id": "TK04", "name": "registration management", "type": "elementary", "casekinds": ["YearE"], "product": "registration management for year is done", "productname": "TK04product"}
+        {"id": "TK01", "name": "registration starting", "type": "elementary", "in": true, "casekinds": ["Registration"], "product": "registration is started", "productname": "StartedRegistration"},
+        {"id": "TK02", "name": "registration paying", "type": "elementary", "in": false, "casekinds": ["Registration", "YearE"], "product": "the fee for registration in year is paid", "productname": "AnnualRegistrationPayment"},
+        {"id": "TK03", "name": "registration ending", "type": "elementary", "in": true, "casekinds": ["Registration"], "product": "registration is ended", "productname": "EndedRegistration"},
+        {"id": "TK04", "name": "registration management", "type": "elementary", "in": true, "casekinds": ["YearE"], "product": "registration management for year is done", "productname": "TK04product"}
     ],
     "actorroles": [
         {"id": "CTAR01", "name": "(aspirant) member", "type": "composite"},
@@ -36,17 +36,17 @@
     ],
     "actionrules": 
     [
-        {"id": "ARS01", "actorrole": "AR01", "when": "T01rq", "while": []},
-        {"id": "ARS02", "actorrole": "AR01", "when": "T01pm", "while": []},
-        {"id": "ARS03", "actorrole": "AR01", "when": "T02da", "while": []},
-        {"id": "ARS04", "actorrole": "AR01", "when": "T01pm", "while": ["T02ac"]},
-        {"id": "ARS05", "actorrole": "AR03", "when": "T03rq", "while": []},
-        {"id": "ARS06", "actorrole": "AR03", "when": "T03pm", "while": []},
-        {"id": "ARS07", "actorrole": "AR04", "when": "T04rq", "while": []},
-        {"id": "ARS08", "actorrole": "AR04", "when": "T01pm", "while": []},
-        {"id": "ARS09", "actorrole": "AR04", "when": "T03da", "while": []},
-        {"id": "ARS10", "actorrole": "AR04", "when": "T04da", "while": []},
-        {"id": "ARS11", "actorrole": "AR04", "when": "T04pm", "while-all": ["T03ac"]}
+        {"id": "ARS01", "actorrole": "AR01", "when": "TK01rq", "while": [], "respond": ["TK01pm"], "respondelse": ["TK01dc"]},
+        {"id": "ARS02", "actorrole": "AR01", "when": "TK01pm", "while": [], "respond": ["TK02rq"]},
+        {"id": "ARS03", "actorrole": "AR01", "when": "TK02da", "while": [], "respond": ["TK02ac"], "respondelse": ["TK02rj"]},
+        {"id": "ARS04", "actorrole": "AR01", "when": "TK01pm", "while": ["TK02ac"], "respond": ["TK01ex", "TK01da"]},
+        {"id": "ARS05", "actorrole": "AR03", "when": "TK03rq", "while": [], "respond": ["TK03pm"], "respondelse": ["TK03dc"]},
+        {"id": "ARS06", "actorrole": "AR03", "when": "TK03pm", "while": [], "respond": ["TK03ex", "TK03da"]},
+        {"id": "ARS07", "actorrole": "AR04", "when": "TK04rq", "while": [], "respond": ["TK04pm", "TK04rq"], "respondelse": ["TK04dc", "TK04rq"]},
+        {"id": "ARS08", "actorrole": "AR04", "when": "TK04pm", "while": [], "respond" : ["TK02rq, TK03rq"]},
+        {"id": "ARS09", "actorrole": "AR04", "when": "TK03da", "while": [], "respond": ["TK03ac"], "respondelse": ["TK03rj"]},
+        {"id": "ARS10", "actorrole": "AR04", "when": "TK04pm", "whileall": ["TK02ac", "TK03ac"], "respond": ["TK04ex", "TK04da"]},
+        {"id": "ARS11", "actorrole": "AR04", "when": "TK04da", "while": [], "respond": ["TK04ac"], "respondelse": ["TK04rj"]}
     ],
     "oivs": [
         {"name": "functionary type"},

@@ -1,19 +1,23 @@
-import { datatypes } from 'mendixmodelsdk';
 import { ParameterDataType, SimpleEntity, SimpleEnumeration, SimpleMicroflow, SimpleModel, SimpleModule } from '../mendixsdk/build/simplesdk.js'
+import { SmartGenerator } from '../mendixsdk/build/lib/smartgenerator.js'
 import descriptor from "./descriptor.json" assert { type: "json" };
+import { pages } from 'mendixmodelsdk';
 
 descriptor.demomodel;
 const demomodel = (await import(descriptor.demomodel, { assert: { type: 'json' } })).default;
 console.log(demomodel);
 
 const simpleModel: SimpleModel = new SimpleModel();
-await simpleModel.openExistingApp(descriptor.appid);
-//await simpleModel.createAndOpenApp(descriptor.appname)
+//await simpleModel.openExistingApp(descriptor.appid);
+await simpleModel.createAndOpenApp(descriptor.appname + (new Date()).toISOString())
 await simpleModel.deleteModules(descriptor.defaultmodule, true)
 const simpleModule: SimpleModule = simpleModel.addModule(descriptor.defaultmodule + (new Date()).toISOString());
 const [userRole] = await simpleModule.addModuleRoles({ User: "User" });
+const mfFolder = simpleModule.addFolder("microflows");
+const pageFolder = simpleModule.addFolder("pages");
 const assResult = simpleModule.addEntity("AssessmentResult", undefined, false)
 assResult.addBooleanAttribute("AssessmentResult")
+const layout = simpleModel.mxModel.findLayoutByQualifiedName("Atlas_Core.Atlas_TopBar") as pages.Layout;
 
 interface Dictionary<Type> {
     [key: string]: Type;
@@ -43,6 +47,7 @@ let enums: Dictionary<SimpleEnumeration> = {};
 for (let factkind of demomodel.factkinds.filter(f => f.type == "entitytype")) {
     console.log(factkind.name)
     entities[factkind.name] = simpleModule.addEntity(factkind.name);
+    //SmartGenerator.generateAllForEntity(entities[factkind.name])
 }
 
 // transaction kinds
@@ -52,21 +57,24 @@ for (let transaction of demomodel.transactionkinds) {
         case "elementary":
             const tkEntity = simpleModule.addEntity(transaction.productname);
             for (let casekind of transaction.casekinds) {
-                tkEntity.addAssociation(entities[casekind], undefined)
+                tkEntity.addAssociation(entities[casekind])
             }
             entities[transaction.productname] = tkEntity;
+
+            if (transaction.in) {
+                pageFolder.addPage(`Request_${transaction.id}`, layout)
+            }
             break;
         case "aggregate":
             // nothing todo
             break;
-        default: throw new Error(transaction.type + "not supported");
+        default: throw new Error(`${transaction.type} not supported`);
     }
 }
 
 // other fact kinds
 for (let factkind of demomodel.factkinds) {
-    //console.info(entities)
-    console.log(factkind.name)
+    console.log(`Processing ${factkind.name}`)
     switch (factkind.type) {
         case "entitytype":
             //skip
@@ -81,7 +89,7 @@ for (let factkind of demomodel.factkinds) {
             } else primitives[factkind.name] = factkind.primitive;
             break;
         case "propertytype":
-            entities[factkind.domain].addAssociation(entities[factkind.range], undefined, undefined, undefined, factkind.name);
+            entities[factkind.domain].addAssociation(entities[factkind.range], undefined, undefined, undefined, undefined, factkind.name);
             break;
         case "attributetype":
             if (enums[factkind.range])
@@ -96,21 +104,22 @@ for (let factkind of demomodel.factkinds) {
                         break;
                     case "number": entities[factkind.domain].addDecimalAttribute(factkind.name);
                         break;
-                    default: throw new Error(factkind.range + "not supported");
+                    default: throw new Error(`${factkind.rang} not supported`);
                 }
             break;
         case "derived":
-            let datatype: datatypes.DataType =
-                factkind.result
-                    ? factkind.result.startsWith("primitive:")
-                        ? convertPrimitiveToDataType(factkind.result.substring(factkind.result.indexOf(":" + 1)))
-                        : entities[factkind.result]
-                            ? datatypes.ObjectType.create(simpleModel.mxModel)
-                            : convertPrimitiveToDataType(primitives[factkind.result])
-                    : datatypes.VoidType.create(simpleModel.mxModel);
+            const newMF: SimpleMicroflow = mfFolder.addMicroflow(`Calculate_${factkind.name}`);
 
-            const newMF: SimpleMicroflow = simpleModule.addMicroflow("Calculate_" + factkind.name);
-            // TODO: set return type
+            if (factkind.result) {
+                if (factkind.result.startsWith("primitive:")) {
+                    newMF.setPrimitiveMicroflowReturnType(convertPrimitiveToDataType(factkind.result.substring(factkind.result.indexOf(":") + 1)))
+                } else if (entities[factkind.result]) {
+                    newMF.setEntityMicroflowReturnType(ParameterDataType.Entity, entities[factkind.result])
+                } else if (primitives[factkind.result]) {
+                    newMF.setPrimitiveMicroflowReturnType(convertPrimitiveToDataType(primitives[factkind.result]))
+                }
+            }
+
             for (let parameter of factkind.parameters) {
                 if (entities[parameter])
                     newMF.addEntityMicroflowParameter(parameter, ParameterDataType.Entity, entities[parameter].mxEntity);
@@ -128,23 +137,31 @@ for (let factkind of demomodel.factkinds) {
                         break;
                     case "number": newMF.addPrimitiveMicroflowParameter(parameter, ParameterDataType.Decimal);
                         break;
-                    default: throw new Error(primitives[parameter] + "not supported");
+                    default: throw new Error(`${primitives[parameter]} not supported`);
                 }
-                newMF.addEndEvent(newMF.mxStartEvent, 1);
             }
+
+            newMF.addEndEvent(newMF.mxStartEvent, 1);
             break;
-        default: throw new Error(factkind.type + "not supported");
+        default: throw new Error(`${factkind.type} not supported`);
     }
 }
 
 // action rules
 for (let actionrule of demomodel.actionrules) {
     // process event part...
-    const newMF: SimpleMicroflow = simpleModule.addMicroflow("AssessTruth_" + actionrule.actorrole + "_" + actionrule.id);
+    const newMF: SimpleMicroflow = mfFolder.addMicroflow(`AssessTruth_${actionrule.actorrole}_${actionrule.id}`);
     newMF.addEntityMicroflowParameter("AssessmentResult", ParameterDataType.Entity, assResult.mxEntity)
-    // TODO: assResult as return type
     newMF.addEndEvent(newMF.mxStartEvent, 1);
-    //newMF.addMicroflowObjectParameter("Account", entityAccountToValidate, "The object to validate");
+
+    let pageName = `ActOn_${actionrule.when}`;
+    if (actionrule.while && actionrule.while.length > 0) {
+        pageName += '_while_' + actionrule.while.join()
+    }
+    if (actionrule.whileall && actionrule.whileall.length > 0) {
+        pageName += '_whileall_' + actionrule.whileall.join()
+    }
+    pageFolder.addPage(pageName, layout)
     // process response part...
 }
 
@@ -157,8 +174,14 @@ for (let oiv of demomodel.oivs) {
 await simpleModel.commit("Generated app v1");
 process.exit();
 
-function convertPrimitiveToDataType(primitive: string): datatypes.DataType {
+function convertPrimitiveToDataType(primitive: string): ParameterDataType {
     switch (primitive) {
-        case "datetime": return datatypes.DateTimeType.create(simpleModel.mxModel);
+        case "datetime": return ParameterDataType.DateTime;
+        case "integer": return ParameterDataType.IntegerLong;
+        case "number": return ParameterDataType.Decimal;
+        case "string": return ParameterDataType.String;
+        case "boolean": return ParameterDataType.Boolean;
+        default:
+            throw new Error(`Unknown primitive: ${primitive}`)
     }
 }
