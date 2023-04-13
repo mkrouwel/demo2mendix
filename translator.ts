@@ -1,5 +1,5 @@
 import { datatypes } from 'mendixmodelsdk';
-import { ParameterDataType, SimpleEntity, SimpleEnumeration, SimpleMicroflow, SimpleModel, SimpleModule } from '../mendixsdk/build/index.js'
+import { ParameterDataType, SimpleEntity, SimpleEnumeration, SimpleMicroflow, SimpleModel, SimpleModule } from '../mendixsdk/build/simplesdk.js'
 import descriptor from "./descriptor.json" assert { type: "json" };
 
 descriptor.demomodel;
@@ -109,23 +109,28 @@ for (let factkind of demomodel.factkinds) {
                             : convertPrimitiveToDataType(primitives[factkind.result])
                     : datatypes.VoidType.create(simpleModel.mxModel);
 
-            const newMF: SimpleMicroflow = simpleModule.addMicroflow("Calculate_" + factkind.name, simpleModule, datatype);
+            const newMF: SimpleMicroflow = simpleModule.addMicroflow("Calculate_" + factkind.name);
             // TODO: set return type
             for (let parameter of factkind.parameters) {
                 if (entities[parameter])
-                    newMF.addMicroflowParameter(parameter, ParameterDataType.Entity, entities[parameter]._entity);
+                    newMF.addEntityMicroflowParameter(parameter, ParameterDataType.Entity, entities[parameter].mxEntity);
+                else if (parameter[0] == "[" && parameter.slice(-1) == "]") {
+                    let entity = entities[parameter.substring(1, parameter.length - 1)];
+                    if (entity)
+                        newMF.addEntityMicroflowParameter(parameter, ParameterDataType.List, entity.mxEntity);
+                }
                 else switch (primitives[parameter]) {
-                    case "datetime": newMF.addMicroflowParameter(parameter, ParameterDataType.DateTime);
+                    case "datetime": newMF.addPrimitiveMicroflowParameter(parameter, ParameterDataType.DateTime);
                         break;
-                    case "bool": newMF.addMicroflowParameter(parameter, ParameterDataType.Boolean);
+                    case "bool": newMF.addPrimitiveMicroflowParameter(parameter, ParameterDataType.Boolean);
                         break;
-                    case "integer": newMF.addMicroflowParameter(parameter, ParameterDataType.Integer);
+                    case "integer": newMF.addPrimitiveMicroflowParameter(parameter, ParameterDataType.IntegerLong);
                         break;
-                    case "number": newMF.addMicroflowParameter(parameter, ParameterDataType.Decimal);
+                    case "number": newMF.addPrimitiveMicroflowParameter(parameter, ParameterDataType.Decimal);
                         break;
                     default: throw new Error(primitives[parameter] + "not supported");
                 }
-                newMF.addEndEvent(newMF.startEvent, 1);
+                newMF.addEndEvent(newMF.mxStartEvent, 1);
             }
             break;
         default: throw new Error(factkind.type + "not supported");
@@ -135,9 +140,10 @@ for (let factkind of demomodel.factkinds) {
 // action rules
 for (let actionrule of demomodel.actionrules) {
     // process event part...
-    const newMF: SimpleMicroflow = simpleModule.addMicroflow("AssessTruth_" + actionrule.actorrole + "_" + actionrule.id, simpleModule, datatypes.ObjectType.create(simpleModel.mxModel));
+    const newMF: SimpleMicroflow = simpleModule.addMicroflow("AssessTruth_" + actionrule.actorrole + "_" + actionrule.id);
+    newMF.addEntityMicroflowParameter("AssessmentResult", ParameterDataType.Entity, assResult.mxEntity)
     // TODO: assResult as return type
-    newMF.addEndEvent(newMF.startEvent, 1);
+    newMF.addEndEvent(newMF.mxStartEvent, 1);
     //newMF.addMicroflowObjectParameter("Account", entityAccountToValidate, "The object to validate");
     // process response part...
 }

@@ -50,6 +50,7 @@
     ],
     "oivs": [
         {"name": "functionary type"},
-        {"name": "organizational unit"}
+        {"name": "organizational unit"},
+        {"name": "authorization"}
     ]
 }
