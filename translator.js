@@ -1,4 +1,4 @@
-import { ParameterDataType, SimpleModel } from '../mendixsdk/build/simplesdk.js';
+import { BasicRelativePosition, ParameterDataType, SimpleModel } from '../mendixsdk/build/simplesdk/simplesdk.js';
 import descriptor from "./descriptor.json" assert { type: "json" };
 descriptor.demomodel;
 const demomodel = (await import(descriptor.demomodel, { assert: { type: 'json' } })).default;
@@ -48,7 +48,7 @@ for (let transaction of demomodel.transactionkinds) {
             }
             entities[transaction.productname] = tkEntity;
             if (transaction.in) {
-                pageFolder.addPage(`Request_${transaction.id}`, layout);
+                pageFolder.addPage(`Request_${transaction.id}`, `Request_${transaction.id}`, layout);
             }
             break;
         case "aggregate":
@@ -105,7 +105,7 @@ for (let factkind of demomodel.factkinds) {
                     newMF.setPrimitiveMicroflowReturnType(convertPrimitiveToDataType(factkind.result.substring(factkind.result.indexOf(":") + 1)));
                 }
                 else if (entities[factkind.result]) {
-                    newMF.setEntityMicroflowReturnType(ParameterDataType.Entity, entities[factkind.result]);
+                    newMF.setEntityMicroflowReturnType(entities[factkind.result]);
                 }
                 else if (primitives[factkind.result]) {
                     newMF.setPrimitiveMicroflowReturnType(convertPrimitiveToDataType(primitives[factkind.result]));
@@ -113,11 +113,11 @@ for (let factkind of demomodel.factkinds) {
             }
             for (let parameter of factkind.parameters) {
                 if (entities[parameter])
-                    newMF.addEntityMicroflowParameter(parameter, ParameterDataType.Entity, entities[parameter].mxEntity);
+                    newMF.addEntityMicroflowParameter(parameter, entities[parameter]);
                 else if (parameter[0] == "[" && parameter.slice(-1) == "]") {
                     let entity = entities[parameter.substring(1, parameter.length - 1)];
                     if (entity)
-                        newMF.addEntityMicroflowParameter(parameter, ParameterDataType.List, entity.mxEntity);
+                        newMF.addEntityMicroflowParameter(parameter, entity, true);
                 }
                 else
                     switch (primitives[parameter]) {
@@ -136,7 +136,7 @@ for (let factkind of demomodel.factkinds) {
                         default: throw new Error(`${primitives[parameter]} not supported`);
                     }
             }
-            newMF.addEndEvent(newMF.mxStartEvent, 1);
+            newMF.addEndEvent(newMF.mxStartEvent, BasicRelativePosition.RIGHT);
             break;
         default: throw new Error(`${factkind.type} not supported`);
     }
@@ -145,16 +145,16 @@ for (let factkind of demomodel.factkinds) {
 for (let actionrule of demomodel.actionrules) {
     // process event part...
     const newMF = mfFolder.addMicroflow(`AssessTruth_${actionrule.actorrole}_${actionrule.id}`);
-    newMF.addEntityMicroflowParameter("AssessmentResult", ParameterDataType.Entity, assResult.mxEntity);
-    newMF.addEndEvent(newMF.mxStartEvent, 1);
+    newMF.addEntityMicroflowParameter("AssessmentResult", assResult);
+    newMF.addEndEvent(newMF.mxStartEvent, BasicRelativePosition.RIGHT);
     let pageName = `ActOn_${actionrule.when}`;
-    if (actionrule.while) {
+    if (actionrule.while && actionrule.while.length > 0) {
         pageName += '_while_' + actionrule.while.join();
     }
-    if (actionrule.whileall) {
+    if (actionrule.whileall && actionrule.whileall.length > 0) {
         pageName += '_whileall_' + actionrule.whileall.join();
     }
-    pageFolder.addPage(pageName, layout);
+    pageFolder.addPage(pageName, pageName, layout);
     // process response part...
 }
 // OIVs
