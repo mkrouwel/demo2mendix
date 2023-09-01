@@ -26,7 +26,7 @@ let enums = {};
 for (let vtmapping of descriptor.valuetypemapping) {
     if (vtmapping.values) {
         const newEnum = module.addEnumeration(vtmapping.name);
-        vtmapping.values.split(", ").forEach(v => {
+        vtmapping.values.split(",").forEach(v => {
             newEnum.addEnumerationValue(v, v);
         });
         enums[vtmapping.name] = newEnum;
@@ -140,12 +140,12 @@ for (let actionrule of demomodel.actionrules) {
     const newMF = mfFolder.addMicroflow(`AssessTruth_ARS${actionrule.id}_AR${actionrule.ear}`);
     newMF.addEntityMicroflowParameter("AssessmentResult", assResult);
     newMF.addEndEvent(newMF.startEvent, BasicRelativePosition.RIGHT);
-    let pageName = `ActOn_${actionrule.when}`;
+    let pageName = `ActOn_TK${actionrule.when}`;
     if (actionrule.while && actionrule.while.length > 0) {
-        pageName += '_while_' + actionrule.while.join();
+        pageName += '_while_TK' + actionrule.while.join('TK');
     }
     if (actionrule.whileall && actionrule.whileall.length > 0) {
-        pageName += '_whileall_' + actionrule.whileall.join();
+        pageName += '_whileall_TK' + actionrule.whileall.join('TK');
     }
     pageFolder.addPage(pageName, pageName, layout);
     // TODO: process response part...
@@ -156,6 +156,7 @@ for (let oiv of descriptor.oivs) {
     oivEntity.addStringAttribute("Name");
 }
 await simpleModel.commit("Generated app v1");
+console.log(simpleModel.appURL);
 process.exit();
 function convertPrimitiveToDataType(primitive) {
     switch (primitive) {

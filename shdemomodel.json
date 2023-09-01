@@ -1,9 +1,9 @@
 {
     "transactorroles": [
-        {"id": "TK01", "transactionkindname": "registration starting", "actorrolename": "registration starter", "focus": true, "casekinds": ["Registration"], "product": "[registration] is started", "productname": "StartedRegistration"},
-        {"id": "TK02", "transactionkindname": "registration paying", "actorrolename": "registration payer", "focus": false, "casekinds": ["Registration", "Year"], "product": "the fee for [registration] in [year] is paid", "productname": "AnnualRegistrationPayment"},
-        {"id": "TK03", "transactionkindname": "registration ending", "actorrolename": "registration ender", "focus": true, "casekinds": ["Registration"], "product": "[registration] is ended", "productname": "EndedRegistration"},
-        {"id": "TK04", "transactionkindname": "registration management", "actorrolename": "registration manager", "focus": true, "casekinds": ["Year"], "product": "registration management for [year] is done", "productname": "RegistrationManagement"}
+        {"id": "01", "transactionkindname": "registration starting", "actorrolename": "registration starter", "focus": true, "casekinds": ["Registration"], "product": "[registration] is started", "productname": "StartedRegistration"},
+        {"id": "02", "transactionkindname": "registration paying", "actorrolename": "registration payer", "focus": false, "casekinds": ["Registration", "Year"], "product": "the fee for [registration] in [year] is paid", "productname": "AnnualRegistrationPayment"},
+        {"id": "03", "transactionkindname": "registration ending", "actorrolename": "registration ender", "focus": true, "casekinds": ["Registration"], "product": "[registration] is ended", "productname": "EndedRegistration"},
+        {"id": "04", "transactionkindname": "registration management", "actorrolename": "registration manager", "focus": true, "casekinds": ["Year"], "product": "registration management for [year] is done", "productname": "RegistrationManagement"}
     ],
     "compositeactorroles": [
         {"id": "01", "name": "(aspirant) member"}

@@ -1,0 +1,45 @@
+{
+    "transactorroles": [
+        {"id": "01", "transactionkindname": "membership starting", "actorrolename": "membership starter", "focus": true, "casekinds": ["Membership"], "product": "[membership] is started", "productname": "StartedMembership"},
+        {"id": "02", "transactionkindname": "membership paying", "actorrolename": "membership payer", "focus": false, "casekinds": ["Membership"], "product": "[membership] is paid", "productname": "PaidMembership"}
+    ],
+    "compositeactorroles": [
+        {"id": "01", "name": "(aspirant) member"}
+    ],
+    "multipletransactionkinds" : [
+        {"id" : "01", "name" : "person facts"},
+        {"id" : "02", "name" : "club facts"}
+    ],
+    "initiates" : [
+        {"ctar": "01", "tk": "01"},
+        {"ear": "01", "tk": "02"}
+    ],
+    "hasaccess" : [
+        {"ear": "01", "mtk": "01"},
+        {"ear": "01", "mtk": "02"}
+    ],
+    "factkinds": [
+        {"name": "Membership", "type": "entitytype", "focus": true},
+        {"name": "Person", "type": "entitytype", "focus": false},
+        {"name": "Year", "type": "entitytype", "focus": false},
+        {"name": "Year", "type": "valuetype"},
+        {"name": "Day", "type": "valuetype"},
+        {"name": "Money", "type": "valuetype"},
+        {"name": "Number", "type": "valuetype"},
+        {"name": "member", "type": "propertytype", "domain": "Membership", "range": "Person"},
+        {"name": "payer", "type": "propertytype", "domain": "Membership", "range": "Person"},
+        {"name": "starting day", "type": "attributetype", "domain": "Membership", "range": "Day"},
+        {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "Day"},
+        {"name": "year", "type": "attributetype", "domain": "Year", "range": "Year"},
+        {"name": "minimum age", "type": "attributetype", "domain": "Year", "range": "Number"},
+        {"name": "membership fee", "type": "attributetype", "domain": "Year", "range": "Money"},
+        {"name": "PersonAge", "type": "derived", "domain": ["Person", "Day"], "range": "Number"}
+    ],
+    "actionrules": 
+    [
+        {"id": "01", "ear": "01", "when": "01-rq", "while": [], "then": ["01-pm"], "else": ["01-dc"]},
+        {"id": "02", "ear": "01", "when": "01-pm", "while": [], "then": ["02-rq"]},
+        {"id": "03", "ear": "01", "when": "02-da", "while": [], "then": ["02-ac"], "else": ["01-rj"]},
+        {"id": "04", "ear": "01", "when": "01-pm", "while": ["02-ac"], "then": ["01-ex", "01-da"]}
+    ]
+}

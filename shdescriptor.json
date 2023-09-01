@@ -13,6 +13,6 @@
       {"name": "Money", "primitive": "decimal"},
       {"name": "Number", "primitive": "integer"},
       {"name": "Boolean", "primitive": "boolean"},
-      {"name": "Nationality", "primitive": "string", "values": "NL, EN"}
+      {"name": "Nationality", "primitive": "string", "values": "NL,EN"}
    ]
 }
