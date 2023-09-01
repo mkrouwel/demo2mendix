@@ -30,6 +30,9 @@ var settings;
     DatabaseType.MySql = new DatabaseType("MySql", {});
     DatabaseType.Oracle = new DatabaseType("Oracle", {});
     DatabaseType.PostgreSql = new DatabaseType("PostgreSql", {});
+    DatabaseType.SapHana = new DatabaseType("SapHana", {
+        introduced: "10.0.0"
+    });
     settings.DatabaseType = DatabaseType;
     class FirstDayOfWeekEnum extends internal.AbstractEnum {
         constructor() {
@@ -1127,7 +1130,7 @@ var settings;
             /** @internal */
             this.__hashAlgorithm = new internal.EnumProperty(RuntimeSettings, this, "hashAlgorithm", HashAlgorithmType.BCrypt, HashAlgorithmType);
             /** @internal */
-            this.__bcryptCost = new internal.PrimitiveProperty(RuntimeSettings, this, "bcryptCost", 10, internal.PrimitiveTypeEnum.Integer);
+            this.__bcryptCost = new internal.PrimitiveProperty(RuntimeSettings, this, "bcryptCost", 12, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__roundingMode = new internal.EnumProperty(RuntimeSettings, this, "roundingMode", RoundingMode.HalfUp, RoundingMode);
             /** @internal */
@@ -1289,7 +1292,13 @@ var settings;
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
             if (this.__bcryptCost.isAvailable) {
-                this.bcryptCost = 10;
+                (() => {
+                    if (internal.isAtLeast("10.0.0", this.model)) {
+                        this.bcryptCost = 12;
+                        return;
+                    }
+                    this.bcryptCost = 10;
+                })();
             }
             if (this.__enableDataStorageNewQueryHandling.isAvailable) {
                 this.enableDataStorageNewQueryHandling = true;
@@ -1496,6 +1505,7 @@ var settings;
             this.__enableWidgetBundling.set(newValue);
         }
         /**
+         * In version 10.0.0: deleted
          * In version 6.6.0: introduced
          */
         get enableDownloadResources() {
@@ -1582,7 +1592,9 @@ var settings;
                 deletionMessage: null
             },
             enableDownloadResources: {
-                introduced: "6.6.0"
+                introduced: "6.6.0",
+                deleted: "10.0.0",
+                deletionMessage: null
             },
             enableMicroflowReachabilityAnalysis: {
                 introduced: "7.0.2"

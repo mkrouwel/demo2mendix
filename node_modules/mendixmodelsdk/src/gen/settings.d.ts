@@ -14,6 +14,7 @@ export declare namespace settings {
         static MySql: DatabaseType;
         static Oracle: DatabaseType;
         static PostgreSql: DatabaseType;
+        static SapHana: DatabaseType;
         protected qualifiedTsTypeName: string;
     }
     class FirstDayOfWeekEnum extends internal.AbstractEnum {
@@ -631,6 +632,7 @@ export declare namespace settings {
         get enableWidgetBundling(): boolean;
         set enableWidgetBundling(newValue: boolean);
         /**
+         * In version 10.0.0: deleted
          * In version 6.6.0: introduced
          */
         get enableDownloadResources(): boolean;

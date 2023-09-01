@@ -16,6 +16,7 @@ export declare class ModelServerClientImpl implements IModelServerClient {
     private editLockId;
     private transportation;
     getTaskDelayInMs: number;
+    awaitTaskTimeoutInMs: number;
     constructor(config: configuration.ISdkConfig);
     private getHeadersForModificationRequest;
     createWorkingCopy(workingCopyInfo: configuration.ICreateWorkingCopyParameters, callback: common.ICallback<IWorkingCopy>, errorCallback: common.IErrorCallback): void;
@@ -65,5 +66,6 @@ export declare class ModelServerClientImpl implements IModelServerClient {
     private getCreateWorkingCopyFromTeamServerData;
     private getAuthorizationHeader;
     private awaitTask;
+    private waitRunningTask;
     private getFullUrl;
 }

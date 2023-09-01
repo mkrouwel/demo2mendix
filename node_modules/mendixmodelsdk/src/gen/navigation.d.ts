@@ -21,6 +21,7 @@ export declare namespace navigation {
         static None: OfflineEntitySyncMode;
         static NoneAndPreserveData: OfflineEntitySyncMode;
         static Never: OfflineEntitySyncMode;
+        static Online: OfflineEntitySyncMode;
         protected qualifiedTsTypeName: string;
     }
     class ProfileKind extends internal.AbstractEnum {

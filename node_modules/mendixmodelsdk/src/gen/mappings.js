@@ -374,9 +374,6 @@ var mappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(ObjectMappingElement);
         }
-        get containerAsImplicitExportMapping() {
-            return super.getContainerAs(rest_1.rest.ImplicitExportMapping);
-        }
         get documentation() {
             return this.__documentation.get();
         }
@@ -659,9 +656,6 @@ var mappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(ObjectMappingElement);
         }
-        get containerAsImplicitExportMapping() {
-            return super.getContainerAs(rest_1.rest.ImplicitExportMapping);
-        }
         get mappingMicroflowCall() {
             return this.__mappingMicroflowCall.get();
         }
@@ -911,6 +905,5 @@ var mappings;
 const datatypes_1 = require("./datatypes");
 const jsonstructures_1 = require("./jsonstructures");
 const messagedefinitions_1 = require("./messagedefinitions");
-const rest_1 = require("./rest");
 const xmlschemas_1 = require("./xmlschemas");
 //# sourceMappingURL=mappings.js.map

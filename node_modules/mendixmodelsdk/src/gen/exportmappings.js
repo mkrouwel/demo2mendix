@@ -107,9 +107,6 @@ var exportmappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(mappings_1.mappings.ObjectMappingElement);
         }
-        get containerAsImplicitExportMapping() {
-            return super.getContainerAs(rest_1.rest.ImplicitExportMapping);
-        }
         /**
          * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
          * The new ExportObjectMappingElement will be automatically stored in the 'rootMappingElements' property
@@ -125,18 +122,6 @@ var exportmappings;
          */
         static createInObjectMappingElementUnderChildren(container) {
             return internal.instancehelpers.createElement(container, ExportObjectMappingElement, "children", true);
-        }
-        /**
-         * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
-         * The new ExportObjectMappingElement will be automatically stored in the 'mapping' property
-         * of the parent rest.ImplicitExportMapping element passed as argument.
-         *
-         * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.23.0 and higher
-         */
-        static createInImplicitExportMappingUnderMapping(container) {
-            internal.createInVersionCheck(container.model, ExportObjectMappingElement.structureTypeName, { start: "9.23.0" });
-            return internal.instancehelpers.createElement(container, ExportObjectMappingElement, "mapping", false);
         }
         /**
          * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
@@ -194,5 +179,4 @@ var exportmappings;
 })(exportmappings = exports.exportmappings || (exports.exportmappings = {}));
 const microflows_1 = require("./microflows");
 const projects_1 = require("./projects");
-const rest_1 = require("./rest");
 //# sourceMappingURL=exportmappings.js.map

@@ -4,12 +4,13 @@
   "description": "",
   "main": "convertor.js",
   "dependencies": {
-    "mendixmodelsdk": "^4.73.0",
-    "mendixplatformsdk": "^5.1.1"
+    "@trives/mxsdkcore": "^1.4.28",
+    "@trives/mxsmartstuff": "^1.4.1",
+    "mendixmodelsdk": "^4.76.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
     "start": "node translator.js"
   },
   "repository": {

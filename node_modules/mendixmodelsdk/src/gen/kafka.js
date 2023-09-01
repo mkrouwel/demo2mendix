@@ -16,6 +16,7 @@ var kafka;
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class ConsumedKafkaService extends domainmodels_1.domainmodels.RemoteEntitySourceDocument {
@@ -105,6 +106,8 @@ var kafka;
     ConsumedKafkaService.structureTypeName = "Kafka$ConsumedKafkaService";
     ConsumedKafkaService.versionInfo = new exports.StructureVersionInfo({
         introduced: "8.11.0",
+        deleted: "10.2.0",
+        deletionMessage: null,
         properties: {
             serviceId: {
                 deleted: "8.14.0",
@@ -120,6 +123,7 @@ var kafka;
     }, internal.StructureType.ModelUnit);
     kafka.ConsumedKafkaService = ConsumedKafkaService;
     /**
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class KafkaMappedValue extends domainmodels_1.domainmodels.CachedMappedValue {
@@ -146,10 +150,10 @@ var kafka;
          * of the parent domainmodels.Attribute element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.0.2 and higher
+         *  9.0.2 to 10.1.0
          */
         static createIn(container) {
-            internal.createInVersionCheck(container.model, KafkaMappedValue.structureTypeName, { start: "9.0.2" });
+            internal.createInVersionCheck(container.model, KafkaMappedValue.structureTypeName, { start: "9.0.2", end: "10.1.0" });
             return internal.instancehelpers.createElement(container, KafkaMappedValue, "value", false);
         }
         /**
@@ -168,6 +172,8 @@ var kafka;
     KafkaMappedValue.structureTypeName = "Kafka$KafkaMappedValue";
     KafkaMappedValue.versionInfo = new exports.StructureVersionInfo({
         introduced: "8.11.0",
+        deleted: "10.2.0",
+        deletionMessage: null,
         public: {
             currentValue: true
         }
@@ -178,6 +184,7 @@ var kafka;
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class KafkaRemoteEntitySource extends domainmodels_1.domainmodels.MaterializedRemoteEntitySource {
@@ -231,10 +238,10 @@ var kafka;
          * of the parent domainmodels.Entity element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.11.0 and higher
+         *  8.11.0 to 10.1.0
          */
         static createIn(container) {
-            internal.createInVersionCheck(container.model, KafkaRemoteEntitySource.structureTypeName, { start: "8.11.0" });
+            internal.createInVersionCheck(container.model, KafkaRemoteEntitySource.structureTypeName, { start: "8.11.0", end: "10.1.0" });
             return internal.instancehelpers.createElement(container, KafkaRemoteEntitySource, "source", false);
         }
         /**
@@ -253,6 +260,8 @@ var kafka;
     KafkaRemoteEntitySource.structureTypeName = "Kafka$KafkaRemoteEntitySource";
     KafkaRemoteEntitySource.versionInfo = new exports.StructureVersionInfo({
         introduced: "8.11.0",
+        deleted: "10.2.0",
+        deletionMessage: null,
         properties: {
             topicName: {
                 introduced: "8.12.0"
@@ -271,6 +280,7 @@ var kafka;
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.14.0: introduced
      */
     class PublishedKafkaResource extends internal.Element {
@@ -347,10 +357,10 @@ var kafka;
          * of the parent PublishedKafkaService element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.14.0 and higher
+         *  8.14.0 to 10.1.0
          */
         static createIn(container) {
-            internal.createInVersionCheck(container.model, PublishedKafkaResource.structureTypeName, { start: "8.14.0" });
+            internal.createInVersionCheck(container.model, PublishedKafkaResource.structureTypeName, { start: "8.14.0", end: "10.1.0" });
             return internal.instancehelpers.createElement(container, PublishedKafkaResource, "resources", true);
         }
         /**
@@ -369,6 +379,8 @@ var kafka;
     PublishedKafkaResource.structureTypeName = "Kafka$PublishedKafkaResource";
     PublishedKafkaResource.versionInfo = new exports.StructureVersionInfo({
         introduced: "8.14.0",
+        deleted: "10.2.0",
+        deletionMessage: null,
         properties: {
             entity: {
                 required: {
@@ -393,6 +405,7 @@ var kafka;
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 9.0.1: introduced
      */
     class PublishedKafkaResourceAttribute extends internal.Element {
@@ -449,10 +462,13 @@ var kafka;
          * of the parent PublishedKafkaResource element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.0.1 and higher
+         *  9.0.1 to 10.1.0
          */
         static createIn(container) {
-            internal.createInVersionCheck(container.model, PublishedKafkaResourceAttribute.structureTypeName, { start: "9.0.1" });
+            internal.createInVersionCheck(container.model, PublishedKafkaResourceAttribute.structureTypeName, {
+                start: "9.0.1",
+                end: "10.1.0"
+            });
             return internal.instancehelpers.createElement(container, PublishedKafkaResourceAttribute, "attributes", true);
         }
         /**
@@ -471,6 +487,8 @@ var kafka;
     PublishedKafkaResourceAttribute.structureTypeName = "Kafka$PublishedKafkaResourceAttribute";
     PublishedKafkaResourceAttribute.versionInfo = new exports.StructureVersionInfo({
         introduced: "9.0.1",
+        deleted: "10.2.0",
+        deletionMessage: null,
         properties: {
             attribute: {
                 required: {
@@ -491,6 +509,7 @@ var kafka;
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.14.0: introduced
      */
     class PublishedKafkaService extends projects_1.projects.Document {
@@ -620,6 +639,8 @@ var kafka;
     PublishedKafkaService.structureTypeName = "Kafka$PublishedKafkaService";
     PublishedKafkaService.versionInfo = new exports.StructureVersionInfo({
         introduced: "8.14.0",
+        deleted: "10.2.0",
+        deletionMessage: null,
         properties: {
             brokerUrl: {
                 required: {

@@ -80,6 +80,8 @@ var enumerations;
             super(model, structureTypeName, id, isPartial, container);
             /** @internal */
             this.__values = new internal.PartListProperty(Enumeration, this, "values", []);
+            /** @internal */
+            this.__remoteSource = new internal.PartProperty(Enumeration, this, "remoteSource", null, false);
             this._containmentName = "documents";
         }
         get containerAsFolderBase() {
@@ -87,6 +89,15 @@ var enumerations;
         }
         get values() {
             return this.__values.get();
+        }
+        /**
+         * In version 10.2.0: introduced
+         */
+        get remoteSource() {
+            return this.__remoteSource.get();
+        }
+        set remoteSource(newValue) {
+            this.__remoteSource.set(newValue);
         }
         /**
          * Creates a new Enumeration unit in the SDK and on the server.
@@ -111,6 +122,9 @@ var enumerations;
                 public: {
                     currentValue: true
                 }
+            },
+            remoteSource: {
+                introduced: "10.2.0"
             }
         }
     }, internal.StructureType.ModelUnit);
@@ -203,6 +217,29 @@ var enumerations;
         }
     }, internal.StructureType.Element);
     enumerations.EnumerationValue = EnumerationValue;
+    /**
+     * In version 10.2.0: introduced
+     */
+    class RemoteEnumerationSource extends internal.Element {
+        constructor(model, structureTypeName, id, isPartial, unit, container) {
+            super(model, structureTypeName, id, isPartial, unit, container);
+            if (arguments.length < 4) {
+                throw new Error("new RemoteEnumerationSource() cannot be invoked directly, please use 'model.enumerations.createRemoteEnumerationSource()'");
+            }
+        }
+        get containerAsEnumeration() {
+            return super.getContainerAs(Enumeration);
+        }
+        /** @internal */
+        _initializeDefaultProperties() {
+            super._initializeDefaultProperties();
+        }
+    }
+    RemoteEnumerationSource.structureTypeName = "Enumerations$RemoteEnumerationSource";
+    RemoteEnumerationSource.versionInfo = new exports.StructureVersionInfo({
+        introduced: "10.2.0"
+    }, internal.StructureType.Element);
+    enumerations.RemoteEnumerationSource = RemoteEnumerationSource;
 })(enumerations = exports.enumerations || (exports.enumerations = {}));
 const documenttemplates_1 = require("./documenttemplates");
 const pages_1 = require("./pages");

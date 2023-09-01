@@ -1,2 +1,5 @@
-
-*.ts
+/node_modules
+/exports
+/configs
+/build
+config.json

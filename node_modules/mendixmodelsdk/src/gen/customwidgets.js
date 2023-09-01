@@ -1103,6 +1103,9 @@ var customwidgets;
         set supportedPlatform(newValue) {
             this.__supportedPlatform.set(newValue);
         }
+        /**
+         * In version 10.0.0: deleted
+         */
         get phoneGapEnabled() {
             return this.__phoneGapEnabled.get();
         }
@@ -1189,6 +1192,10 @@ var customwidgets;
             },
             supportedPlatform: {
                 introduced: "8.0.0"
+            },
+            phoneGapEnabled: {
+                deleted: "10.0.0",
+                deletionMessage: null
             },
             experimentalApi: {
                 introduced: "7.0.0",

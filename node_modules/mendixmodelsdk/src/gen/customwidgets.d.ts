@@ -675,6 +675,9 @@ export declare namespace customwidgets {
          */
         get supportedPlatform(): client.SupportedPlatform;
         set supportedPlatform(newValue: client.SupportedPlatform);
+        /**
+         * In version 10.0.0: deleted
+         */
         get phoneGapEnabled(): boolean;
         set phoneGapEnabled(newValue: boolean);
         get offlineCapable(): boolean;

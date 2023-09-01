@@ -53,6 +53,11 @@ export declare namespace enumerations {
         static versionInfo: StructureVersionInfo;
         get containerAsFolderBase(): projects.FolderBase;
         get values(): internal.IList<EnumerationValue>;
+        /**
+         * In version 10.2.0: introduced
+         */
+        get remoteSource(): RemoteEnumerationSource | null;
+        set remoteSource(newValue: RemoteEnumerationSource | null);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, container: projects.IFolderBase);
         /**
          * Creates a new Enumeration unit in the SDK and on the server.
@@ -99,6 +104,15 @@ export declare namespace enumerations {
          */
         static create(model: IModel): EnumerationValue;
         get qualifiedName(): string | null;
+    }
+    /**
+     * In version 10.2.0: introduced
+     */
+    abstract class RemoteEnumerationSource extends internal.Element<IModel> {
+        static structureTypeName: string;
+        static versionInfo: StructureVersionInfo;
+        get containerAsEnumeration(): Enumeration;
+        constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
     }
 }
 import { documenttemplates } from "./documenttemplates";

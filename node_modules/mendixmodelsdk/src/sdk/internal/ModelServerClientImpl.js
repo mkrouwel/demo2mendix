@@ -18,6 +18,7 @@ class ModelServerClientImpl {
         this.MAX_PARALLEL_REQUESTS = 100;
         this.runningRequests = 0;
         this.getTaskDelayInMs = 500;
+        this.awaitTaskTimeoutInMs = 900000; // 15m
         this.transportation = config.transportation || new RestTransportation_1.RestTransportation(config);
     }
     getHeadersForModificationRequest() {
@@ -419,12 +420,8 @@ class ModelServerClientImpl {
         }
         throw new Error("No credentials provided");
     }
-    async awaitTask(taskId) {
-        let lastTaskData = { status: "running" };
-        while (lastTaskData.status === "running") {
-            await new Promise(resolve => setTimeout(resolve, this.getTaskDelayInMs));
-            lastTaskData = await new Promise((resolve, reject) => this.transportation.retryableRequest({ method: "get", url: this.getFullUrl(`/v1/tasks/${taskId}`) }, resolve, reject));
-        }
+    async awaitTask(taskId, timeoutInMs = this.awaitTaskTimeoutInMs, taskPollingDelayInMs = this.getTaskDelayInMs) {
+        const lastTaskData = await withTimeout(this.waitRunningTask(taskId, taskPollingDelayInMs), timeoutInMs);
         if (lastTaskData.status !== "finished") {
             // Emulate the synchronous request error format by having a nested 'error' property with the actual error.
             const error = new Error("An error occurred while creating the working copy");
@@ -433,9 +430,23 @@ class ModelServerClientImpl {
         }
         return lastTaskData;
     }
+    async waitRunningTask(taskId, taskPollingDelayInMs) {
+        let lastTaskData = { status: "running" };
+        while (lastTaskData.status === "running") {
+            await new Promise(resolve => setTimeout(resolve, taskPollingDelayInMs));
+            lastTaskData = await new Promise((resolve, reject) => this.transportation.retryableRequest({ method: "get", url: this.getFullUrl(`/v1/tasks/${taskId}`) }, resolve, reject));
+        }
+        return lastTaskData;
+    }
     getFullUrl(relativeUrl) {
         return utils_1.utils.combineUrl(this.config.endPoint || "", relativeUrl);
     }
 }
 exports.ModelServerClientImpl = ModelServerClientImpl;
+async function withTimeout(promise, timeoutInMs) {
+    let timeoutHandle;
+    const timeoutPromise = new Promise((_, reject) => (timeoutHandle = setTimeout(() => reject(new Error("Timeout exceeded")), timeoutInMs)));
+    const result = await Promise.race([promise.finally(() => clearTimeout(timeoutHandle)), timeoutPromise]);
+    return result;
+}
 //# sourceMappingURL=ModelServerClientImpl.js.map

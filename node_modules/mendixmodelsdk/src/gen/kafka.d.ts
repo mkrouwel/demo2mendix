@@ -11,6 +11,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     interface IConsumedKafkaService extends domainmodels.IRemoteEntitySourceDocument {
@@ -25,6 +26,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class ConsumedKafkaService extends domainmodels.RemoteEntitySourceDocument implements IConsumedKafkaService {
@@ -59,6 +61,7 @@ export declare namespace kafka {
         static createIn(container: projects.IFolderBase): ConsumedKafkaService;
     }
     /**
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     interface IKafkaMappedValue extends domainmodels.ICachedMappedValue {
@@ -69,6 +72,7 @@ export declare namespace kafka {
         load(forceRefresh?: boolean): Promise<KafkaMappedValue>;
     }
     /**
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class KafkaMappedValue extends domainmodels.CachedMappedValue implements IKafkaMappedValue {
@@ -84,7 +88,7 @@ export declare namespace kafka {
          * of the parent domainmodels.Attribute element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.0.2 and higher
+         *  9.0.2 to 10.1.0
          */
         static createIn(container: domainmodels.Attribute): KafkaMappedValue;
         /**
@@ -99,6 +103,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     interface IKafkaRemoteEntitySource extends domainmodels.IMaterializedRemoteEntitySource {
@@ -113,6 +118,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.11.0: introduced
      */
     class KafkaRemoteEntitySource extends domainmodels.MaterializedRemoteEntitySource implements IKafkaRemoteEntitySource {
@@ -141,7 +147,7 @@ export declare namespace kafka {
          * of the parent domainmodels.Entity element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.11.0 and higher
+         *  8.11.0 to 10.1.0
          */
         static createIn(container: domainmodels.Entity): KafkaRemoteEntitySource;
         /**
@@ -156,6 +162,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.14.0: introduced
      */
     class PublishedKafkaResource extends internal.Element<IModel> {
@@ -191,7 +198,7 @@ export declare namespace kafka {
          * of the parent PublishedKafkaService element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.14.0 and higher
+         *  8.14.0 to 10.1.0
          */
         static createIn(container: PublishedKafkaService): PublishedKafkaResource;
         /**
@@ -206,6 +213,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 9.0.1: introduced
      */
     class PublishedKafkaResourceAttribute extends internal.Element<IModel> {
@@ -231,7 +239,7 @@ export declare namespace kafka {
          * of the parent PublishedKafkaResource element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  9.0.1 and higher
+         *  9.0.1 to 10.1.0
          */
         static createIn(container: PublishedKafkaResource): PublishedKafkaResourceAttribute;
         /**
@@ -246,6 +254,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.14.0: introduced
      */
     interface IPublishedKafkaService extends projects.IDocument {
@@ -260,6 +269,7 @@ export declare namespace kafka {
      *
      * @ignore
      *
+     * In version 10.2.0: deleted
      * In version 8.14.0: introduced
      */
     class PublishedKafkaService extends projects.Document implements IPublishedKafkaService {
