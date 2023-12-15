@@ -1,7 +1,7 @@
 {
    "appname": "SH",
    "defaultmodule": "SH",
-   "demomodel" : "./shdemomodel.json",
+   "demomodel" : "shdemomodel",
    "oivs": [
       {"name": "functionary type"},
       {"name": "organizational unit"},

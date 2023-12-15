@@ -2,14 +2,15 @@
   "compilerOptions": {
     "target": "ES2021",
     "lib": ["ES2021"],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "Node16",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "noImplicitThis": true
-  }
+    "noImplicitThis": true,
+    "rootDir": "./src",
+    "outDir": "./build"
+  },"include": ["src"]
 }

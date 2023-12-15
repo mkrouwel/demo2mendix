@@ -2,22 +2,21 @@
   "name": "demo2mendix",
   "version": "1.0.0",
   "description": "",
-  "main": "convertor.js",
+  "main": "main.js",
   "dependencies": {
     "@trives/mxsdkcore": "^1.4.28",
     "@trives/mxsmartstuff": "^1.4.1",
-    "mendixmodelsdk": "^4.76.0"
+    "mendixmodelsdk": "^4.76.0",
+    "ssh2-sftp-client": "^9.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node translator.js"
+    "test": "node ./build/test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mkrouwel/demo2mendix.git"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "bugs": {
