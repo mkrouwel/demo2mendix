@@ -610,6 +610,7 @@ export declare namespace customwidgets {
         static create(model: IModel): CustomWidget;
     }
     /**
+     * In version 10.5.0: deleted
      * In version 8.5.0: introduced
      */
     class CustomWidgetDatabaseSource extends pages.DatabaseSourceBase {
@@ -624,7 +625,7 @@ export declare namespace customwidgets {
          * of the parent WidgetValue element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.5.0 and higher
+         *  8.5.0 to 10.4.0
          */
         static createInWidgetValueUnderDataSource(container: WidgetValue): CustomWidgetDatabaseSource;
         /**
@@ -633,7 +634,7 @@ export declare namespace customwidgets {
          * of the parent pages.EntityWidget element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.5.0 and higher
+         *  8.5.0 to 10.4.0
          */
         static createInEntityWidgetUnderDataSource(container: pages.EntityWidget): CustomWidgetDatabaseSource;
         /**
@@ -1116,6 +1117,11 @@ export declare namespace customwidgets {
         get returnType(): WidgetReturnType | null;
         set returnType(newValue: WidgetReturnType | null);
         get translations(): internal.IList<WidgetTranslation>;
+        /**
+         * In version 10.5.0: introduced
+         */
+        get setLabel(): boolean;
+        set setLabel(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new WidgetValueType instance in the SDK and on the server.

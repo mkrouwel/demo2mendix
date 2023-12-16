@@ -948,6 +948,7 @@ var customwidgets;
     }, internal.StructureType.Element);
     customwidgets.CustomWidget = CustomWidget;
     /**
+     * In version 10.5.0: deleted
      * In version 8.5.0: introduced
      */
     class CustomWidgetDatabaseSource extends pages_1.pages.DatabaseSourceBase {
@@ -969,10 +970,10 @@ var customwidgets;
          * of the parent WidgetValue element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.5.0 and higher
+         *  8.5.0 to 10.4.0
          */
         static createInWidgetValueUnderDataSource(container) {
-            internal.createInVersionCheck(container.model, CustomWidgetDatabaseSource.structureTypeName, { start: "8.5.0" });
+            internal.createInVersionCheck(container.model, CustomWidgetDatabaseSource.structureTypeName, { start: "8.5.0", end: "10.4.0" });
             return internal.instancehelpers.createElement(container, CustomWidgetDatabaseSource, "dataSource", false);
         }
         /**
@@ -981,10 +982,10 @@ var customwidgets;
          * of the parent pages.EntityWidget element passed as argument.
          *
          * Warning! Can only be used on models with the following Mendix meta model versions:
-         *  8.5.0 and higher
+         *  8.5.0 to 10.4.0
          */
         static createInEntityWidgetUnderDataSource(container) {
-            internal.createInVersionCheck(container.model, CustomWidgetDatabaseSource.structureTypeName, { start: "8.5.0" });
+            internal.createInVersionCheck(container.model, CustomWidgetDatabaseSource.structureTypeName, { start: "8.5.0", end: "10.4.0" });
             return internal.instancehelpers.createElement(container, CustomWidgetDatabaseSource, "dataSource", false);
         }
         /**
@@ -1002,7 +1003,9 @@ var customwidgets;
     }
     CustomWidgetDatabaseSource.structureTypeName = "CustomWidgets$CustomWidgetDatabaseSource";
     CustomWidgetDatabaseSource.versionInfo = new exports.StructureVersionInfo({
-        introduced: "8.5.0"
+        introduced: "8.5.0",
+        deleted: "10.5.0",
+        deletionMessage: null
     }, internal.StructureType.Element);
     customwidgets.CustomWidgetDatabaseSource = CustomWidgetDatabaseSource;
     class CustomWidgetType extends internal.Element {
@@ -2132,6 +2135,8 @@ var customwidgets;
             this.__returnType = new internal.PartProperty(WidgetValueType, this, "returnType", null, false);
             /** @internal */
             this.__translations = new internal.PartListProperty(WidgetValueType, this, "translations", []);
+            /** @internal */
+            this.__setLabel = new internal.PrimitiveProperty(WidgetValueType, this, "setLabel", false, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new WidgetValueType() cannot be invoked directly, please use 'model.customwidgets.createWidgetValueType()'");
             }
@@ -2270,6 +2275,15 @@ var customwidgets;
             return this.__translations.get();
         }
         /**
+         * In version 10.5.0: introduced
+         */
+        get setLabel() {
+            return this.__setLabel.get();
+        }
+        set setLabel(newValue) {
+            this.__setLabel.set(newValue);
+        }
+        /**
          * Creates and returns a new WidgetValueType instance in the SDK and on the server.
          * The new WidgetValueType will be automatically stored in the 'valueType' property
          * of the parent WidgetPropertyType element passed as argument.
@@ -2315,6 +2329,9 @@ var customwidgets;
             },
             selectionTypes: {
                 introduced: "9.23.0"
+            },
+            setLabel: {
+                introduced: "10.5.0"
             }
         }
     }, internal.StructureType.Element);

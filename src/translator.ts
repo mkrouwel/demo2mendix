@@ -169,8 +169,7 @@ export async function demo2mendix(mendixtoken: string, appname: string, modulena
     }
 
     await simpleModel.commit("Generated app v1");
-    console.log(simpleModel.appURL);
-    process.exit();
+    return simpleModel;
 }
 
 function convertPrimitiveToDataType(primitive: string): SimpleDataType {

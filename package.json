@@ -6,12 +6,14 @@
   "dependencies": {
     "@trives/mxsdkcore": "^1.4.28",
     "@trives/mxsmartstuff": "^1.4.1",
+    "basic-ftp": "^5.0.4",
     "mendixmodelsdk": "^4.76.0",
     "ssh2-sftp-client": "^9.1.0"
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "node ./build/test.js"
+    "test": "node ./build/test.js",
+    "main": "node ./build/main.js"
   },
   "repository": {
     "type": "git",

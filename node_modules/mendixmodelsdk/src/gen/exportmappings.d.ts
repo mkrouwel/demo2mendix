@@ -51,6 +51,7 @@ export declare namespace exportmappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): mappings.MappingDocument;
         get containerAsObjectMappingElement(): mappings.ObjectMappingElement;
+        get containerAsImplicitMappingBody(): rest.ImplicitMappingBody;
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
@@ -64,6 +65,15 @@ export declare namespace exportmappings {
          * of the parent mappings.ObjectMappingElement element passed as argument.
          */
         static createInObjectMappingElementUnderChildren(container: mappings.ObjectMappingElement): ExportObjectMappingElement;
+        /**
+         * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
+         * The new ExportObjectMappingElement will be automatically stored in the 'rootMappingElement' property
+         * of the parent rest.ImplicitMappingBody element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  10.4.0 and higher
+         */
+        static createInImplicitMappingBodyUnderRootMappingElement(container: rest.ImplicitMappingBody): ExportObjectMappingElement;
         /**
          * Creates and returns a new ExportObjectMappingElement instance in the SDK and on the server.
          * Expects one argument: the IModel object the instance will "live on".
@@ -95,4 +105,5 @@ export declare namespace exportmappings {
 }
 import { microflows } from "./microflows";
 import { projects } from "./projects";
+import { rest } from "./rest";
 import { IModel } from "./base-model";

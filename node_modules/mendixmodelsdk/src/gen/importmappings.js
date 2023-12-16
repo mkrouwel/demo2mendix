@@ -105,6 +105,9 @@ var importmappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(mappings_1.mappings.ObjectMappingElement);
         }
+        get containerAsImplicitMappingResponseHandling() {
+            return super.getContainerAs(rest_1.rest.ImplicitMappingResponseHandling);
+        }
         /**
          * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
          * The new ImportObjectMappingElement will be automatically stored in the 'rootMappingElements' property
@@ -120,6 +123,18 @@ var importmappings;
          */
         static createInObjectMappingElementUnderChildren(container) {
             return internal.instancehelpers.createElement(container, ImportObjectMappingElement, "children", true);
+        }
+        /**
+         * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
+         * The new ImportObjectMappingElement will be automatically stored in the 'rootMappingElement' property
+         * of the parent rest.ImplicitMappingResponseHandling element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  10.3.0 and higher
+         */
+        static createInImplicitMappingResponseHandlingUnderRootMappingElement(container) {
+            internal.createInVersionCheck(container.model, ImportObjectMappingElement.structureTypeName, { start: "10.3.0" });
+            return internal.instancehelpers.createElement(container, ImportObjectMappingElement, "rootMappingElement", false);
         }
         /**
          * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
@@ -177,4 +192,5 @@ var importmappings;
 })(importmappings = exports.importmappings || (exports.importmappings = {}));
 const datatypes_1 = require("./datatypes");
 const projects_1 = require("./projects");
+const rest_1 = require("./rest");
 //# sourceMappingURL=importmappings.js.map

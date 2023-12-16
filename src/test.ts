@@ -8,3 +8,5 @@ const demomodel = require(`../inputfiles/${descriptor.demomodel}.json`);//, { as
 console.log(demomodel);
 
 demo2mendix(config.mendixtoken, descriptor.appname, descriptor.defaultmodule, descriptor.demomodel, descriptor.oivs, descriptor.valuetypemapping);
+
+process.exit();

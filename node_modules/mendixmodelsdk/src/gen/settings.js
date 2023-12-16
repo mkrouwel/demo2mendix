@@ -1145,6 +1145,8 @@ var settings;
             this.__useDeprecatedClientForWebServiceCalls = new internal.PrimitiveProperty(RuntimeSettings, this, "useDeprecatedClientForWebServiceCalls", false, internal.PrimitiveTypeEnum.Boolean);
             /** @internal */
             this.__useSystemContextForBackgroundTasks = new internal.PrimitiveProperty(RuntimeSettings, this, "useSystemContextForBackgroundTasks", false, internal.PrimitiveTypeEnum.Boolean);
+            /** @internal */
+            this.__useDatabaseForeignKeyConstraints = new internal.PrimitiveProperty(RuntimeSettings, this, "useDatabaseForeignKeyConstraints", false, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new RuntimeSettings() cannot be invoked directly, please use 'model.settings.createRuntimeSettings()'");
             }
@@ -1273,6 +1275,15 @@ var settings;
             this.__useSystemContextForBackgroundTasks.set(newValue);
         }
         /**
+         * In version 10.6.0: introduced
+         */
+        get useDatabaseForeignKeyConstraints() {
+            return this.__useDatabaseForeignKeyConstraints.get();
+        }
+        set useDatabaseForeignKeyConstraints(newValue) {
+            this.__useDatabaseForeignKeyConstraints.set(newValue);
+        }
+        /**
          * Creates and returns a new RuntimeSettings instance in the SDK and on the server.
          * The new RuntimeSettings will be automatically stored in the 'settingsParts' property
          * of the parent ProjectSettings element passed as argument.
@@ -1313,6 +1324,9 @@ var settings;
             this.hashAlgorithm = HashAlgorithmType.BCrypt;
             this.roundingMode = RoundingMode.HalfUp;
             this.scheduledEventTimeZoneCode = "Etc/UTC";
+            if (this.__useDatabaseForeignKeyConstraints.isAvailable) {
+                this.useDatabaseForeignKeyConstraints = false;
+            }
             if (this.__useDeprecatedClientForWebServiceCalls.isAvailable) {
                 this.useDeprecatedClientForWebServiceCalls = false;
             }
@@ -1347,6 +1361,9 @@ var settings;
             },
             useSystemContextForBackgroundTasks: {
                 introduced: "9.6.0"
+            },
+            useDatabaseForeignKeyConstraints: {
+                introduced: "10.6.0"
             }
         }
     }, internal.StructureType.Element);
@@ -1439,6 +1456,8 @@ var settings;
             /** @internal */
             this.__useOptimizedClient = new internal.EnumProperty(WebUIProjectSettingsPart, this, "useOptimizedClient", UseOptimizedClient.No, UseOptimizedClient);
             /** @internal */
+            this.__urlPrefix = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "urlPrefix", "p", internal.PrimitiveTypeEnum.String);
+            /** @internal */
             this.__theme = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "theme", "(Default)", internal.PrimitiveTypeEnum.String);
             /** @internal */
             this.__themeModuleName = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "themeModuleName", "", internal.PrimitiveTypeEnum.String);
@@ -1454,6 +1473,8 @@ var settings;
             this.__themeConversionStatus = new internal.EnumProperty(WebUIProjectSettingsPart, this, "themeConversionStatus", ThemeConversionStatusEnum.Done, ThemeConversionStatusEnum);
             /** @internal */
             this.__themeModuleOrder = new internal.PartListProperty(WebUIProjectSettingsPart, this, "themeModuleOrder", []);
+            /** @internal */
+            this.__enableNewWidgetGeneration = new internal.PrimitiveProperty(WebUIProjectSettingsPart, this, "enableNewWidgetGeneration", true, internal.PrimitiveTypeEnum.Boolean);
             if (arguments.length < 4) {
                 throw new Error("new WebUIProjectSettingsPart() cannot be invoked directly, please use 'model.settings.createWebUIProjectSettingsPart()'");
             }
@@ -1469,6 +1490,15 @@ var settings;
         }
         set useOptimizedClient(newValue) {
             this.__useOptimizedClient.set(newValue);
+        }
+        /**
+         * In version 10.5.0: introduced
+         */
+        get urlPrefix() {
+            return this.__urlPrefix.get();
+        }
+        set urlPrefix(newValue) {
+            this.__urlPrefix.set(newValue);
         }
         /**
          * In version 9.2.0: deleted
@@ -1540,6 +1570,15 @@ var settings;
             return this.__themeModuleOrder.get();
         }
         /**
+         * In version 10.6.0: introduced
+         */
+        get enableNewWidgetGeneration() {
+            return this.__enableNewWidgetGeneration.get();
+        }
+        set enableNewWidgetGeneration(newValue) {
+            this.__enableNewWidgetGeneration.set(newValue);
+        }
+        /**
          * Creates and returns a new WebUIProjectSettingsPart instance in the SDK and on the server.
          * The new WebUIProjectSettingsPart will be automatically stored in the 'settingsParts' property
          * of the parent ProjectSettings element passed as argument.
@@ -1561,11 +1600,17 @@ var settings;
             if (this.__enableMicroflowReachabilityAnalysis.isAvailable) {
                 this.enableMicroflowReachabilityAnalysis = true;
             }
+            if (this.__enableNewWidgetGeneration.isAvailable) {
+                this.enableNewWidgetGeneration = true;
+            }
             if (this.__theme.isAvailable) {
                 this.theme = "(Default)";
             }
             if (this.__themeConversionStatus.isAvailable) {
                 this.themeConversionStatus = ThemeConversionStatusEnum.Done;
+            }
+            if (this.__urlPrefix.isAvailable) {
+                this.urlPrefix = "p";
             }
             if (this.__useOptimizedClient.isAvailable) {
                 this.useOptimizedClient = UseOptimizedClient.No;
@@ -1577,6 +1622,9 @@ var settings;
         properties: {
             useOptimizedClient: {
                 introduced: "9.10.0"
+            },
+            urlPrefix: {
+                introduced: "10.5.0"
             },
             theme: {
                 deleted: "9.2.0",
@@ -1606,6 +1654,9 @@ var settings;
             },
             themeModuleOrder: {
                 introduced: "9.3.0"
+            },
+            enableNewWidgetGeneration: {
+                introduced: "10.6.0"
             }
         }
     }, internal.StructureType.Element);

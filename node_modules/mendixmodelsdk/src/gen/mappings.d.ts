@@ -131,6 +131,8 @@ export declare namespace mappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): MappingDocument;
         get containerAsObjectMappingElement(): ObjectMappingElement;
+        get containerAsImplicitMappingBody(): rest.ImplicitMappingBody;
+        get containerAsImplicitMappingResponseHandling(): rest.ImplicitMappingResponseHandling;
         get documentation(): string;
         set documentation(newValue: string);
         get elementType(): ElementType;
@@ -240,6 +242,8 @@ export declare namespace mappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): MappingDocument;
         get containerAsObjectMappingElement(): ObjectMappingElement;
+        get containerAsImplicitMappingBody(): rest.ImplicitMappingBody;
+        get containerAsImplicitMappingResponseHandling(): rest.ImplicitMappingResponseHandling;
         get mappingMicroflowCall(): MappingMicroflowCall | null;
         set mappingMicroflowCall(newValue: MappingMicroflowCall | null);
         get children(): internal.IList<MappingElement>;
@@ -309,6 +313,11 @@ export declare namespace mappings {
         set fractionDigits(newValue: number);
         get totalDigits(): number;
         set totalDigits(newValue: number);
+        /**
+         * In version 10.3.0: introduced
+         */
+        get originalValue(): string;
+        set originalValue(newValue: string);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
     }
 }
@@ -317,6 +326,7 @@ import { domainmodels } from "./domainmodels";
 import { jsonstructures } from "./jsonstructures";
 import { messagedefinitions } from "./messagedefinitions";
 import { microflows } from "./microflows";
+import { rest } from "./rest";
 import { webservices } from "./webservices";
 import { xmlschemas } from "./xmlschemas";
 import { IModel } from "./base-model";

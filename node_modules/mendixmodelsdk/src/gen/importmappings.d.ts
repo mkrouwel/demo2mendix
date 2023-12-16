@@ -50,6 +50,7 @@ export declare namespace importmappings {
         static versionInfo: StructureVersionInfo;
         get containerAsMappingDocument(): mappings.MappingDocument;
         get containerAsObjectMappingElement(): mappings.ObjectMappingElement;
+        get containerAsImplicitMappingResponseHandling(): rest.ImplicitMappingResponseHandling;
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
@@ -63,6 +64,15 @@ export declare namespace importmappings {
          * of the parent mappings.ObjectMappingElement element passed as argument.
          */
         static createInObjectMappingElementUnderChildren(container: mappings.ObjectMappingElement): ImportObjectMappingElement;
+        /**
+         * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
+         * The new ImportObjectMappingElement will be automatically stored in the 'rootMappingElement' property
+         * of the parent rest.ImplicitMappingResponseHandling element passed as argument.
+         *
+         * Warning! Can only be used on models with the following Mendix meta model versions:
+         *  10.3.0 and higher
+         */
+        static createInImplicitMappingResponseHandlingUnderRootMappingElement(container: rest.ImplicitMappingResponseHandling): ImportObjectMappingElement;
         /**
          * Creates and returns a new ImportObjectMappingElement instance in the SDK and on the server.
          * Expects one argument: the IModel object the instance will "live on".
@@ -95,4 +105,5 @@ export declare namespace importmappings {
 import { datatypes } from "./datatypes";
 import { domainmodels } from "./domainmodels";
 import { projects } from "./projects";
+import { rest } from "./rest";
 import { IModel } from "./base-model";

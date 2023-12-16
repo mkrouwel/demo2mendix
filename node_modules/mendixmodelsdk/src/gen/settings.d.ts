@@ -549,6 +549,11 @@ export declare namespace settings {
          */
         get useSystemContextForBackgroundTasks(): boolean;
         set useSystemContextForBackgroundTasks(newValue: boolean);
+        /**
+         * In version 10.6.0: introduced
+         */
+        get useDatabaseForeignKeyConstraints(): boolean;
+        set useDatabaseForeignKeyConstraints(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new RuntimeSettings instance in the SDK and on the server.
@@ -614,6 +619,11 @@ export declare namespace settings {
         get useOptimizedClient(): UseOptimizedClient;
         set useOptimizedClient(newValue: UseOptimizedClient);
         /**
+         * In version 10.5.0: introduced
+         */
+        get urlPrefix(): string;
+        set urlPrefix(newValue: string);
+        /**
          * In version 9.2.0: deleted
          */
         get theme(): string;
@@ -652,6 +662,11 @@ export declare namespace settings {
          * In version 9.3.0: introduced
          */
         get themeModuleOrder(): internal.IList<ThemeModuleEntry>;
+        /**
+         * In version 10.6.0: introduced
+         */
+        get enableNewWidgetGeneration(): boolean;
+        set enableNewWidgetGeneration(newValue: boolean);
         constructor(model: internal.AbstractModel, structureTypeName: string, id: string, isPartial: boolean, unit: internal.ModelUnit, container: internal.AbstractElement);
         /**
          * Creates and returns a new WebUIProjectSettingsPart instance in the SDK and on the server.

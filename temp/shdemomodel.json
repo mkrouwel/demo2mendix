@@ -1,0 +1,66 @@
+{
+    "transactorroles": [
+        {"id": "01", "transactionkindname": "registration starting", "actorrolename": "registration starter", "focus": true, "casekinds": ["Registration"], "product": "[registration] is started", "productname": "StartedRegistration"},
+        {"id": "02", "transactionkindname": "registration paying", "actorrolename": "registration payer", "focus": false, "casekinds": ["Registration", "Year"], "product": "the fee for [registration] in [year] is paid", "productname": "AnnualRegistrationPayment"},
+        {"id": "03", "transactionkindname": "registration ending", "actorrolename": "registration ender", "focus": true, "casekinds": ["Registration"], "product": "[registration] is ended", "productname": "EndedRegistration"},
+        {"id": "04", "transactionkindname": "registration management", "actorrolename": "registration manager", "focus": true, "casekinds": ["Year"], "product": "registration management for [year] is done", "productname": "RegistrationManagement"}
+    ],
+    "compositeactorroles": [
+        {"id": "01", "name": "(aspirant) member"}
+    ],
+    "multipletransactionkinds" : [
+        {"id" : "91", "name" : "Costs and terms"},
+        {"id" : "92", "name" : "Person & living facts"}
+    ],
+    "initiates" : [
+        {"ctar": "01", "tk": "01"},
+        {"ear": "01", "tk": "02"},
+        {"ear": "04", "tk": "04"},
+        {"ear": "04", "tk": "02"},
+        {"ear": "04", "tk": "03"},
+        {"ctar": "01", "tk": "03"}
+    ],
+    "hasaccess" : [
+        {"ear": "01", "mtk": "91"},
+        {"ear": "01", "mtk": "92"},
+        {"ear": "04", "mtk": "01"},
+        {"ear": "04", "mtk": "91"}
+    ],
+    "factkinds": [
+        {"name": "Registration", "type": "entitytype", "focus": true},
+        {"name": "Person", "type": "entitytype", "focus": false},
+        {"name": "Year", "type": "entitytype", "focus": false},
+        {"name": "Year", "type": "valuetype"},
+        {"name": "Day", "type": "valuetype"},
+        {"name": "Money", "type": "valuetype"},
+        {"name": "Number", "type": "valuetype"},
+        {"name": "Boolean", "type": "valuetype"},
+        {"name": "Nationality", "type": "valuetype"},
+        {"name": "member", "type": "propertytype", "domain": "Registration", "range": "Person"},
+        {"name": "payer", "type": "propertytype", "domain": "Registration", "range": "Person"},
+        {"name": "starting day", "type": "attributetype", "domain": "StartedRegistration", "range": "Day"},
+        {"name": "ending day", "type": "attributetype", "domain": "EndedRegistration", "range": "Day"},
+        {"name": "paid amount", "type": "attributetype", "domain": "AnnualRegistrationPayment", "range": "Money"},
+        {"name": "day of birth", "type": "attributetype", "domain": "Person", "range": "Day"},
+        {"name": "nationality", "type": "attributetype", "domain": "Person", "range": "Nationality"},
+        {"name": "year", "type": "attributetype", "domain": "Year", "range": "Year"},
+        {"name": "standard registration fee", "type": "attributetype", "domain": "Year", "range": "Money"},
+        {"name": "standard renewal fee", "type": "attributetype", "domain": "Year", "range": "Money"},
+        {"name": "PersonAge", "type": "derived", "domain": ["Person", "Day"], "range": "Number"},
+        {"name": "PersonHasActiveRegistration", "type": "derived", "domain": ["Person", "Day"], "range": "Boolean"}
+    ],
+    "actionrules": 
+    [
+        {"id": "01", "ear": "01", "when": "01-rq", "while": [], "then": ["01-pm"], "else": ["01-dc"]},
+        {"id": "02", "ear": "01", "when": "01-pm", "while": [], "then": ["02-rq"]},
+        {"id": "03", "ear": "01", "when": "02-da", "while": [], "then": ["02-ac"], "else": ["02-rj"]},
+        {"id": "04", "ear": "01", "when": "01-pm", "while": ["02-ac"], "then": ["01-ex", "01-da"]},
+        {"id": "05", "ear": "03", "when": "03-rq", "while": [], "then": ["03-pm"], "else": ["03-dc"]},
+        {"id": "06", "ear": "03", "when": "03-pm", "while": [], "then": ["03-ex", "03-da"]},
+        {"id": "07", "ear": "04", "when": "04-rq", "while": [], "then": ["04-pm", "04-rq"], "else": ["04-dc", "04-rq"]},
+        {"id": "08", "ear": "04", "when": "04-pm", "while": [], "then" : ["02-rq, 03-rq"]},
+        {"id": "09", "ear": "04", "when": "03-da", "while": [], "then": ["03-ac"], "else": ["03-rj"]},
+        {"id": "10", "ear": "04", "when": "04-pm", "whileall": ["02-ac", "03-ac"], "then": ["04-ex", "04-da"]},
+        {"id": "11", "ear": "04", "when": "04-da", "while": [], "then": ["04-ac"], "else": ["04-rj"]}
+    ]
+}

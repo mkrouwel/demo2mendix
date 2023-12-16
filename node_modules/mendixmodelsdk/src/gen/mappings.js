@@ -374,6 +374,12 @@ var mappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(ObjectMappingElement);
         }
+        get containerAsImplicitMappingBody() {
+            return super.getContainerAs(rest_1.rest.ImplicitMappingBody);
+        }
+        get containerAsImplicitMappingResponseHandling() {
+            return super.getContainerAs(rest_1.rest.ImplicitMappingResponseHandling);
+        }
         get documentation() {
             return this.__documentation.get();
         }
@@ -656,6 +662,12 @@ var mappings;
         get containerAsObjectMappingElement() {
             return super.getContainerAs(ObjectMappingElement);
         }
+        get containerAsImplicitMappingBody() {
+            return super.getContainerAs(rest_1.rest.ImplicitMappingBody);
+        }
+        get containerAsImplicitMappingResponseHandling() {
+            return super.getContainerAs(rest_1.rest.ImplicitMappingResponseHandling);
+        }
         get mappingMicroflowCall() {
             return this.__mappingMicroflowCall.get();
         }
@@ -762,6 +774,8 @@ var mappings;
             this.__fractionDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "fractionDigits", -1, internal.PrimitiveTypeEnum.Integer);
             /** @internal */
             this.__totalDigits = new internal.PrimitiveProperty(ValueMappingElement, this, "totalDigits", -1, internal.PrimitiveTypeEnum.Integer);
+            /** @internal */
+            this.__originalValue = new internal.PrimitiveProperty(ValueMappingElement, this, "originalValue", "", internal.PrimitiveTypeEnum.String);
             if (arguments.length < 4) {
                 throw new Error("new ValueMappingElement() cannot be invoked directly, please use 'model.mappings.createValueMappingElement()'");
             }
@@ -861,11 +875,23 @@ var mappings;
         set totalDigits(newValue) {
             this.__totalDigits.set(newValue);
         }
+        /**
+         * In version 10.3.0: introduced
+         */
+        get originalValue() {
+            return this.__originalValue.get();
+        }
+        set originalValue(newValue) {
+            this.__originalValue.set(newValue);
+        }
         /** @internal */
         _initializeDefaultProperties() {
             super._initializeDefaultProperties();
             this.fractionDigits = -1;
             this.maxLength = -1;
+            if (this.__originalValue.isAvailable) {
+                this.originalValue = "";
+            }
             this.totalDigits = -1;
             if (this.__type.isAvailable) {
                 this.type = datatypes_1.datatypes.UnknownType.create(this.model);
@@ -897,6 +923,9 @@ var mappings;
             expectedContentTypes: {
                 deleted: "6.4.1",
                 deletionMessage: null
+            },
+            originalValue: {
+                introduced: "10.3.0"
             }
         }
     }, internal.StructureType.Element);
@@ -905,5 +934,6 @@ var mappings;
 const datatypes_1 = require("./datatypes");
 const jsonstructures_1 = require("./jsonstructures");
 const messagedefinitions_1 = require("./messagedefinitions");
+const rest_1 = require("./rest");
 const xmlschemas_1 = require("./xmlschemas");
 //# sourceMappingURL=mappings.js.map
