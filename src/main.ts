@@ -4,6 +4,7 @@ import { demo2mendix } from "./translator";
 const config = require("../configs/config.json");
 import logger from 'loglevel';
 import { FTPChecker } from "./ftpchecker";
+import { valueTypeMapping } from "./valuetypes";
 logger.setLevel(logger.levels.INFO);
 
 main().catch(logger.error);
@@ -11,15 +12,6 @@ main().catch(logger.error);
 async function main() {
     await (new FTPChecker(processFile, { host: "localhost", user: "Anonymous", password: "1" })).start();
 }
-
-const valueTypeMapping = [
-    { "name": "Year", "primitive": "integer" },
-    { "name": "Day", "primitive": "datetime" },
-    { "name": "Money", "primitive": "decimal" },
-    { "name": "Number", "primitive": "integer" },
-    { "name": "Boolean", "primitive": "boolean" },
-    { "name": "Nationality", "primitive": "string", "values": "NL,EN" }
-];
 
 async function processFile(filename: string, client: ftp.Client) {
     if (filename.endsWith('json')) {

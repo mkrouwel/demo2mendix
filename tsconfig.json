@@ -12,5 +12,5 @@
     "noImplicitThis": true,
     "rootDir": "./src",
     "outDir": "./build"
-  },"include": ["src"]
+  },"include": ["src", "types"]
 }

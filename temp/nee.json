@@ -1,0 +1,23 @@
+{
+  "templateid": "123",
+  "appname": "jahoor",
+  "model": {
+    "transactorroles": [
+      { "id": "TK01", "transactionkindname": "TK01 name", "actorrolename": "AR01 name", "focus": false, "casekinds": ["entity1"], "product": "PK01 name [entity1]", "productname": "PK01" },
+      { "id": "TK02", "transactionkindname": "TK02 name", "actorrolename": "AR02 name", "focus": false, "casekinds": ["entity2"], "product": "PK02 name [entity2]", "productname": "PK02" }
+    ],
+    "compositeactorroles": [{ "id": "CAR01", "name": "CAR01 name" }],
+    "multipletransactionkinds": [{ "id": "MTK01", "name": "MTK01 name" }],
+    "initiates": [
+      { "ctar": "CAR01", "tk": "TK02" },
+      { "tk": "TK01", "ear": "AR09" }
+    ],
+    "hasaccess": null,
+    "factkinds": [
+      { "name": "entity1", "type": "entitytype" },
+      { "name": "entity2", "type": "entitytype" },
+      { "name": "ref1", "type": "propertytype", "domain": "entity1", "range": "entity2" }
+    ],
+    "actionrules": []
+  }
+}
