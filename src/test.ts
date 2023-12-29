@@ -1,12 +1,20 @@
 const config = require("../configs/config.json");
 //import config from "../configs/config.json" assert { type: "json" };
-const descriptor = require("../inputfiles/shdescriptor.json")
+const model = require("../temp/nee.json")
 //import descriptor from assert { type: "json" };
 import { demo2mendix } from "./translator.js";
 
-const demomodel = require(`../inputfiles/${descriptor.demomodel}.json`);//, { assert: { type: 'json' } })).default ;
-console.log(demomodel);
+import logger from 'loglevel';
+import { valueTypeMapping } from "./valuetypes.js";
+logger.setLevel(logger.levels.INFO);
 
-demo2mendix(config.mendixtoken, descriptor.appname, descriptor.defaultmodule, descriptor.demomodel, descriptor.oivs, descriptor.valuetypemapping);
+//const demomodel = require(`../inputfiles/${descriptor.demomodel}.json`);//, { assert: { type: 'json' } })).default ;
+//logger.info(model.model);
 
-process.exit();
+main().catch(logger.error);
+
+async function main() {
+    const app = await demo2mendix(config.mendixtoken, model.appname, model.appname, model.model, [], valueTypeMapping);
+    logger.info(app.appId);
+    process.exit();
+}

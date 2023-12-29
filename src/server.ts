@@ -6,6 +6,7 @@ import { valueTypeMapping } from './valuetypes';
 
 logger.setLevel(logger.levels.INFO);
 const config = require("../configs/config.json");
+const callbackBaseURI = 'http://localhost:8080/rest/tscallbackservice/v1/mxappready/'
 
 const port = 8000;
 
@@ -18,7 +19,8 @@ app.listen(port, () => {
 app.post('/demo2mendix/v1/:jobid', democallhandler);
 
 async function democallhandler(req: Request, res: Response) {
-    const token = req.get('Token');
+    const jobid = req.params.jobid;
+    const token = req.get('jobtoken');
     if (!token) {
         res.status(400).send('No token provided');
         return;
@@ -38,6 +40,27 @@ async function democallhandler(req: Request, res: Response) {
         const model = await demo2mendix(config.mendixtoken, fileName, fileName, await response.readBody(), [], valueTypeMapping);
         logger.info(model.appURL);
     }*/
-    logger.info(`request recieved; jobid: ${req.params.jobid}; token:"${token}`);
+    logger.info(`request recieved; jobid: ${jobid} token:${token}`);
     res.sendStatus(200);
+
+    const client = new HttpClient(null);
+
+    const conversionresult = new SuccessResult('1723220f-d19d-4cb8-9f12-af9273b228ec');
+    const headers = { 'Content-Type': 'application/json', 'jobtoken': token };
+    const response = await client.post(callbackBaseURI + jobid, JSON.stringify(conversionresult), headers);
+    logger.info(response.message.statusCode);
+}
+
+abstract class MxAppReadyResult {
+    protected constructor(protected success: boolean) { }
+}
+class ErrorResult extends MxAppReadyResult {
+    public constructor(protected latesterror: string) {
+        super(false);
+    }
+}
+class SuccessResult extends MxAppReadyResult {
+    public constructor(protected appprojectid: string) {
+        super(true);
+    }
 }
