@@ -7,7 +7,7 @@ import { valueTypeMapping } from './valuetypes';
 logger.setLevel(logger.levels.INFO);
 const config = require("../configs/config.json");
 
-const port = 3000;
+const port = 8000;
 
 const app = express();
 
@@ -15,10 +15,16 @@ app.listen(port, () => {
     logger.info(`Server is running on port ${port}}. Go to http://localhost:${port}/`)
 });
 
-app.put('/demo', democallhandler);
+app.post('/demo2mendix/v1/:jobid', democallhandler);
 
 async function democallhandler(req: Request, res: Response) {
-    const client = new HttpClient(null);
+    const token = req.get('Token');
+    if (!token) {
+        res.status(400).send('No token provided');
+        return;
+    }
+
+    /*const client = new HttpClient(null);
     const filePath = req.body.path;
     if (filePath.startsWith("http")) {// includes https
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
@@ -31,5 +37,7 @@ async function democallhandler(req: Request, res: Response) {
         const fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.lastIndexOf(".") - 1);
         const model = await demo2mendix(config.mendixtoken, fileName, fileName, await response.readBody(), [], valueTypeMapping);
         logger.info(model.appURL);
-    }
+    }*/
+    logger.info(`request recieved; jobid: ${req.params.jobid}; token:"${token}`);
+    res.sendStatus(200);
 }
