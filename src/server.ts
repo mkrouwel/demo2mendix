@@ -43,7 +43,7 @@ async function democallhandler(req: Request, res: Response) {
     logger.info(`request recieved; jobid: ${jobid} token:${token}`);
     res.sendStatus(200);
 
-    const client = new HttpClient(null);
+    const client = new HttpClient(null, undefined, undefined);// TODO: maybe define additional (token) header here, see https://copyprogramming.com/howto/how-extends-correctly-the-headers-of-request-in-typescript#how-do-i-make-a-http-request-in-typescript
 
     const conversionresult = new SuccessResult('1723220f-d19d-4cb8-9f12-af9273b228ec');
     const headers = { 'Content-Type': 'application/json', 'jobtoken': token };
