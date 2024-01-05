@@ -11,6 +11,8 @@ const callbackBaseURI = 'http://localhost:8080/rest/tscallbackservice/v1/mxappre
 
 const port = 8000;
 
+let busy = false;
+
 const app = express();
 app.use(express.json({ strict: true }));
 
@@ -47,6 +49,13 @@ async function democallhandler(req: Request, res: Response) {
         return;
     }
 
+    if (busy) {
+        logger.info('Server busy');
+        res.sendStatus(HttpCodes.TooManyRequests);
+        return;
+    }
+
+    logger.info('Server free');
     res.sendStatus(HttpCodes.OK);
 
     convertToDemo(jobid, jobtoken, mxtoken, model);
@@ -54,6 +63,7 @@ async function democallhandler(req: Request, res: Response) {
 
 async function convertToDemo(jobid: string, jobtoken: string, mxtoken: string, model: Model) {
     //logger.info(model);
+    busy = true;
     const client = new HttpClient(null, undefined, undefined);// TODO: maybe define additional (token) header here, see https://copyprogramming.com/howto/how-extends-correctly-the-headers-of-request-in-typescript#how-do-i-make-a-http-request-in-typescript
 
     let result: any;
@@ -72,6 +82,7 @@ async function convertToDemo(jobid: string, jobtoken: string, mxtoken: string, m
         if (response.message.statusCode != HttpCodes.OK) {
             logger.info(`${response.message.statusCode} received: ` + response.message.statusMessage);
         }
+        busy = false;
     }
 }
 
