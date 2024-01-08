@@ -6,7 +6,7 @@ import { Model } from './model';
 import { valueTypeMapping } from './valuetypes';
 
 logger.setLevel(logger.levels.INFO);
-const config = require("../configs/config.json");
+//const config = require("../configs/config.json");
 const callbackBaseURI = 'http://localhost:8080/rest/tscallbackservice/v1/mxappready/'
 
 const port = 8000;
