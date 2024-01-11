@@ -1,7 +1,7 @@
-import { BasicRelativePosition, SimpleDataType, SimpleEnumeration, SimpleMicroflow, SimpleModel, SimpleModule } from "@trives/mxsdkcore/build/simplesdk/simplesdk.js";
-import { Dictionary, Lib } from "@trives/mxsdkcore/build/lib/lib.js";
+import { BasicRelativePosition, SimpleDataType, SimpleEnumeration, SimpleMicroflow, SimpleModel, SimpleModule } from "@trives/mxsdkcore/build";
+import { Dictionary, Lib } from "@trives/mxsdkcore/build";
 import { pages } from "mendixmodelsdk";
-import { SmartGenerator } from "@trives/mxsmartstuff/build/smartstuff/smartgenerator.js";
+//import { SmartGenerator } from "@trives/mxsmartstuff/build/smartstuff/smartgenerator.js";
 
 export async function demo2mendix(mendixtoken: string, appname: string, modulename: string, demomodel: any, oivs: any[], valuetypemapping: any[]) {
     const simpleModel: SimpleModel = new SimpleModel(mendixtoken);
